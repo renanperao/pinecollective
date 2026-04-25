@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Pine Collective — Dark Premium Theme */
+  --background: #101419;
+  --foreground: #f3efe9;
+  --card: #151a20;
+  --card-foreground: #f3efe9;
+  --popover: #151a20;
+  --popover-foreground: #f3efe9;
+
+  /* Burnt orange accent */
+  --primary: #e05f21;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1a2027;
+  --secondary-foreground: #f3efe9;
+
+  --muted: #1a2027;
+  --muted-foreground: #8a8f96;
+
+  --accent: #e05f21;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #232a33;
+  --input: #1a2027;
+  --ring: #e05f21;
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #101419;
+  --foreground: #f3efe9;
+  --card: #151a20;
+  --card-foreground: #f3efe9;
+  --popover: #151a20;
+  --popover-foreground: #f3efe9;
+  --primary: #e05f21;
+  --primary-foreground: #ffffff;
+  --secondary: #1a2027;
+  --secondary-foreground: #f3efe9;
+  --muted: #1a2027;
+  --muted-foreground: #8a8f96;
+  --accent: #e05f21;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #232a33;
+  --input: #1a2027;
+  --ring: #e05f21;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans-geist), 'Geist Fallback', system-ui, sans-serif;
+  --font-serif: var(--font-serif-display), 'Times New Roman', serif;
+  --font-mono: var(--font-mono-geist), 'Geist Mono Fallback', ui-monospace,
+    monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-background;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background-color: #e05f21;
+    color: #ffffff;
+  }
+}
+
+@layer utilities {
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+  .hairline {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      var(--border) 20%,
+      var(--border) 80%,
+      transparent
+    );
+    height: 1px;
+  }
+}
