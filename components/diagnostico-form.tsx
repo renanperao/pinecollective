@@ -100,7 +100,7 @@ export function DiagnosticoForm() {
                     <p className="mt-3 text-muted-foreground max-w-md leading-relaxed">
                       Um dos sócios da Pine Collective vai te procurar em até{" "}
                       <span className="text-foreground">dois dias úteis</span>{" "}
-                      pelo e-mail informado.
+                      pelos canais informados.
                     </p>
                   </div>
                 </div>
@@ -135,16 +135,29 @@ export function DiagnosticoForm() {
                     </Field>
                   </div>
 
-                  <Field id="email" label="E-mail corporativo">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="voce@empresa.com.br"
-                      className="form-input"
-                    />
-                  </Field>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <Field id="email" label="E-mail corporativo">
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="voce@empresa.com.br"
+                        className="form-input"
+                      />
+                    </Field>
+
+                    <Field id="telefone" label="WhatsApp / Telefone">
+                      <input
+                        id="telefone"
+                        name="telefone"
+                        type="tel"
+                        required
+                        placeholder="(00) 00000-0000"
+                        className="form-input"
+                      />
+                    </Field>
+                  </div>
 
                   <Field
                     id="gargalo"
