@@ -95,6 +95,7 @@
   }
   html {
     @apply bg-background;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground antialiased;
