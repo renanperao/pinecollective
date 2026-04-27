@@ -14,10 +14,35 @@ const orcamentos = [
 export function DiagnosticoForm() {
   const [orcamento, setOrcamento] = useState<string>("")
   const [enviado, setEnviado] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setEnviado(true)
+    setIsSubmitting(true)
+
+    const formData = new FormData(e.currentTarget)
+    formData.append("access_key", "44a8e0c4-b5a0-476e-a492-ecdd98683d14")
+    formData.append("subject", `Novo Diagnóstico: ${formData.get("empresa")}`)
+    formData.append("from_name", "Pine Collective Website")
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setEnviado(true)
+      } else {
+        alert("Ocorreu um erro ao enviar. Por favor, tente novamente.")
+      }
+    } catch (error) {
+      alert("Erro de conexão. Verifique sua internet.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -81,6 +106,11 @@ export function DiagnosticoForm() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+                  <input
+                    type="hidden"
+                    name="from_name"
+                    value="Pine Collective Website"
+                  />
                   <div className="grid sm:grid-cols-2 gap-6">
                     <Field id="nome" label="Nome">
                       <input
@@ -160,10 +190,11 @@ export function DiagnosticoForm() {
                     </p>
                     <button
                       type="submit"
-                      className="group inline-flex items-center justify-between gap-6 rounded-full bg-primary pl-6 pr-2 py-2 text-primary-foreground transition-all hover:bg-primary/90"
+                      disabled={isSubmitting}
+                      className="group inline-flex items-center justify-between gap-6 rounded-full bg-primary pl-6 pr-2 py-2 text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="text-sm font-medium tracking-tight">
-                        Enviar diagnóstico
+                        {isSubmitting ? "Enviando..." : "Enviar diagnóstico"}
                       </span>
                       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-background/15 transition-transform group-hover:rotate-45">
                         <ArrowUpRight className="h-4 w-4" strokeWidth={2.2} />

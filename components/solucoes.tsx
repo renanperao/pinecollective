@@ -73,10 +73,13 @@ export function Solucoes() {
                 {description}
               </p>
 
-              <div className="mt-8 flex items-center gap-2 text-xs text-muted-foreground/80 group-hover:text-primary transition-colors">
+              <a
+                href="#diagnostico"
+                className="mt-8 flex items-center gap-2 text-xs text-muted-foreground/80 group-hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4"
+              >
                 <span className="h-px w-6 bg-current" />
                 Saiba mais
-              </div>
+              </a>
             </li>
           ))}
         </ul>
