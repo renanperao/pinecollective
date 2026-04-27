@@ -46,7 +46,7 @@ export function Solucoes() {
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-            Cada projeto começa com um diagnóstico real do seu gargalo — e
+            Cada projeto começa com um diagnóstico real do seu gargalo, e
             termina com uma ferramenta que sua equipe usa todos os dias.
           </p>
         </div>

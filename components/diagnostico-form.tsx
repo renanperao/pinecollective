@@ -5,8 +5,8 @@ import { ArrowUpRight, Check } from "lucide-react"
 
 const orcamentos = [
   "Até R$ 15k",
-  "R$ 15k – R$ 50k",
-  "R$ 50k – R$ 120k",
+  "R$ 15k a R$ 50k",
+  "R$ 50k a R$ 120k",
   "Acima de R$ 120k",
   "Ainda definindo",
 ]
@@ -66,8 +66,8 @@ export function DiagnosticoForm() {
             </h2>
 
             <p className="mt-8 text-base md:text-lg leading-relaxed text-muted-foreground max-w-md">
-              Conte sobre o gargalo do seu negócio. Em até dois dias úteis,
-              voltamos com um diagnóstico inicial — sem custo, sem compromisso.
+              Conte sobre o gargalo do seu negócio. Em breve voltamos com um
+              diagnóstico inicial, sem custo e sem compromisso.
             </p>
 
             <ul className="mt-10 space-y-4 text-sm text-muted-foreground">
@@ -98,9 +98,9 @@ export function DiagnosticoForm() {
                       Recebido. Obrigado pela confiança.
                     </h3>
                     <p className="mt-3 text-muted-foreground max-w-md leading-relaxed">
-                      Um dos sócios da Pine Collective vai te procurar em até{" "}
-                      <span className="text-foreground">dois dias úteis</span>{" "}
-                      pelos canais informados.
+                      Um dos sócios da Pine Collective vai te procurar{" "}
+                      <span className="text-foreground">rapidamente</span> pelos
+                      canais informados.
                     </p>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ export function DiagnosticoForm() {
                       name="gargalo"
                       required
                       rows={4}
-                      placeholder="Conte com suas palavras — quanto mais específico, melhor."
+                      placeholder="Conte com suas palavras, quanto mais específico melhor."
                       className="form-input resize-none"
                     />
                   </Field>

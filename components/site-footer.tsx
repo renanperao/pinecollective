@@ -16,7 +16,7 @@ export function SiteFooter() {
             </Link>
             <p className="mt-5 text-sm text-muted-foreground leading-relaxed max-w-sm">
               O braço tecnológico para empresas que já faturam e querem escalar
-              com inteligência — sem virar mais um número numa agência.
+              com inteligência, sem virar mais um número numa agência.
             </p>
           </div>
 
@@ -50,14 +50,24 @@ export function SiteFooter() {
             <ul className="mt-5 flex flex-col gap-3 text-sm">
               <li>
                 <a
-                  href="mailto:hello@pinecollective.com.br"
+                  href="mailto:contato@pinecollective.dev"
                   className="text-foreground hover:text-primary transition-colors"
                 >
-                  hello@pinecollective.com.br
+                  contato@pinecollective.dev
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/5548992163070"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  (48) 99216-3070
                 </a>
               </li>
               <li className="text-muted-foreground">
-                São Paulo · atendemos remotamente em todo o Brasil
+                Tijucas, SC · atendimento para todo o Brasil
               </li>
             </ul>
           </div>

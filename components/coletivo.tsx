@@ -30,7 +30,7 @@ export function Coletivo() {
             </h2>
 
             <p className="mt-8 text-base md:text-lg leading-relaxed text-muted-foreground max-w-md">
-              Para cada desafio, montamos um time enxuto com as pessoas certas —
+              Para cada desafio, montamos um time enxuto com as pessoas certas,
               não um time grande com pessoas disponíveis. É assim que entregamos
               profundidade técnica sem o peso de uma agência tradicional.
             </p>

@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero"
 import { Proximidade } from "@/components/proximidade"
 import { Solucoes } from "@/components/solucoes"
 import { Coletivo } from "@/components/coletivo"
+import { PresencaDigital } from "@/components/presenca-digital"
 import { DiagnosticoForm } from "@/components/diagnostico-form"
 import { SiteFooter } from "@/components/site-footer"
 import { ScrollFadeIn } from "@/components/scroll-fade-in"
@@ -17,6 +18,9 @@ export default function Page() {
       </ScrollFadeIn>
       <ScrollFadeIn>
         <Solucoes />
+      </ScrollFadeIn>
+      <ScrollFadeIn>
+        <PresencaDigital />
       </ScrollFadeIn>
       <ScrollFadeIn>
         <Coletivo />

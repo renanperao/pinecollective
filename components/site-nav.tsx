@@ -9,7 +9,7 @@ export function SiteNav() {
           <Link
             href="/"
             className="flex items-center gap-2.5 text-foreground"
-            aria-label="Pine Collective — Início"
+            aria-label="Pine Collective, Início"
           >
             <PineLogo className="h-6 w-6 text-primary" />
             <span className="text-sm tracking-[-0.01em] font-medium">

@@ -19,7 +19,7 @@ export function Proximidade() {
 
           <div className="lg:col-span-8">
             <p className="text-balance font-sans text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-[-0.015em] font-medium">
-              Atenção dedicada. Você não fala com um robô ou um estagiário —
+              Atenção dedicada. Você não fala com um robô ou um estagiário,
               você fala{" "}
               <span className="font-serif italic font-normal text-primary">
                 diretamente com quem projeta a solução.

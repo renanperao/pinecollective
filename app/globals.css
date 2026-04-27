@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pine Collective — Dark Premium Theme */
+  /* Pine Collective - Dark Premium Theme */
   --background: #101419;
   --foreground: #f3efe9;
   --card: #151a20;

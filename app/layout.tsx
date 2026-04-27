@@ -21,7 +21,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pinecollective.dev"),
-  title: "Pine Collective — Tecnologia sob medida para quem já fatura",
+  title: "Pine Collective | Tecnologia sob medida para quem já fatura",
   description:
     "Consultoria boutique de tecnologia. Digitalizamos e otimizamos pequenos e médios negócios cansados de processos manuais. Atenção dedicada, soluções customizadas, resultado real.",
   keywords: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Pine Collective — Consultoria boutique de tecnologia",
+        alt: "Pine Collective | Consultoria boutique de tecnologia",
       },
     ],
   },
