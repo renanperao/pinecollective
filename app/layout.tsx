@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SmoothScroll } from "@/components/smooth-scroll"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -76,31 +77,33 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} scroll-smooth selection:bg-primary selection:text-primary-foreground bg-background`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} selection:bg-primary selection:text-primary-foreground bg-background`}
     >
       <body className="font-sans antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              "name": "Pine Collective",
-              "image": "https://pinecollective.dev/og-image.png",
-              "description": "Consultoria boutique de tecnologia e automação para médias e pequenas empresas.",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Tijucas",
-                "addressRegion": "SC",
-                "addressCountry": "BR"
-              },
-              "url": "https://pinecollective.dev",
-              "priceRange": "$$$"
-            }),
-          }}
-        />
-        {children}
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        <SmoothScroll>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ProfessionalService",
+                "name": "Pine Collective",
+                "image": "https://pinecollective.dev/og-image.png",
+                "description": "Consultoria boutique de tecnologia e automação para médias e pequenas empresas.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Tijucas",
+                  "addressRegion": "SC",
+                  "addressCountry": "BR"
+                },
+                "url": "https://pinecollective.dev",
+                "priceRange": "$$$"
+              }),
+            }}
+          />
+          {children}
+          {process.env.NODE_ENV === "production" && <Analytics />}
+        </SmoothScroll>
       </body>
     </html>
   )

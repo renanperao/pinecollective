@@ -129,7 +129,7 @@ export function DiagnosticoForm() {
                         name="empresa"
                         type="text"
                         required
-                        placeholder="Nome do seu negócio"
+                        placeholder="Seu negócio ou empresa"
                         className="form-input"
                       />
                     </Field>
@@ -258,7 +258,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={id}
-        className="text-xs uppercase tracking-[0.16em] text-muted-foreground"
+        className="text-[10px] sm:text-xs uppercase tracking-[0.18em] text-primary"
       >
         {label}
       </label>
