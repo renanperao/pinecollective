@@ -1,3 +1,6 @@
+import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+
 const especialistas = [
   { area: "Arquitetura", role: "Sistemas distribuídos" },
   { area: "Produto", role: "Discovery & UX" },
@@ -35,16 +38,7 @@ export function Coletivo() {
               profundidade técnica sem o peso de uma agência tradicional.
             </p>
 
-            <div className="mt-10 flex items-center gap-6">
-              <div>
-                <div className="text-3xl md:text-4xl font-medium tracking-tight text-foreground">
-                  +12
-                </div>
-                <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground mt-1">
-                  Anos de operação
-                </div>
-              </div>
-              <div className="h-10 w-px bg-border" />
+            <div className="mt-10">
               <div>
                 <div className="text-3xl md:text-4xl font-medium tracking-tight text-foreground">
                   100%
@@ -54,6 +48,18 @@ export function Coletivo() {
                 </div>
               </div>
             </div>
+
+            <Link
+              href="#diagnostico"
+              className="group mt-10 inline-flex items-center justify-between gap-6 rounded-full bg-primary pl-6 pr-2 py-2 text-primary-foreground transition-all hover:bg-primary/90"
+            >
+              <span className="text-sm font-medium tracking-tight">
+                Falar com um especialista
+              </span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-background/15 transition-transform group-hover:rotate-45">
+                <ArrowUpRight className="h-4 w-4" strokeWidth={2.2} />
+              </span>
+            </Link>
           </div>
 
           <div className="lg:col-span-7">

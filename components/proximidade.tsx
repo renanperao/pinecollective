@@ -28,19 +28,38 @@ export function Proximidade() {
               próximo nível.
             </p>
 
-            <div className="mt-12 flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex -space-x-2">
-                <span className="h-9 w-9 rounded-full border border-border bg-secondary flex items-center justify-center text-xs font-medium text-foreground">
-                  PC
-                </span>
-                <span className="h-9 w-9 rounded-full border border-border bg-secondary flex items-center justify-center text-xs font-medium text-foreground">
-                  RM
-                </span>
-                <span className="h-9 w-9 rounded-full border border-border bg-secondary flex items-center justify-center text-xs font-medium text-foreground">
-                  AC
-                </span>
+            <div className="mt-12 pt-10 border-t border-border/60">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                {[
+                  {
+                    num: "01",
+                    title: "Diagnóstico",
+                    desc: "Entendemos o gargalo real antes de qualquer linha de código.",
+                  },
+                  {
+                    num: "02",
+                    title: "Arquitetura",
+                    desc: "Projetamos a solução sob medida para o seu contexto específico.",
+                  },
+                  {
+                    num: "03",
+                    title: "Entrega",
+                    desc: "Acompanhamos cada fase até a ferramenta estar em uso real.",
+                  },
+                ].map((step) => (
+                  <div key={step.num} className="flex flex-col gap-3">
+                    <span className="font-mono text-xs text-primary tracking-[0.1em]">
+                      {step.num}
+                    </span>
+                    <span className="text-sm font-medium text-foreground tracking-tight">
+                      {step.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground leading-relaxed">
+                      {step.desc}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <span>Sócios e arquitetos no projeto, do briefing à entrega.</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { SiteNav } from "@/components/site-nav"
 import { Hero } from "@/components/hero"
+import { StackStrip } from "@/components/stack-strip"
 import { Proximidade } from "@/components/proximidade"
 import { Solucoes } from "@/components/solucoes"
 import { Coletivo } from "@/components/coletivo"
@@ -13,6 +14,7 @@ export default function Page() {
     <main className="relative min-h-screen bg-background text-foreground grain">
       <SiteNav />
       <Hero />
+      <StackStrip />
       <ScrollFadeIn>
         <Proximidade />
       </ScrollFadeIn>
