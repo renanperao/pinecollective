@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { ArrowUpRight, Check } from "lucide-react"
+import { toast } from "sonner"
 
 const orcamentos = [
   "Até R$ 15k",
@@ -59,10 +60,10 @@ export function DiagnosticoForm() {
       if (json.success) {
         setEnviado(true)
       } else {
-        alert("Ocorreu um erro ao enviar. Por favor, tente novamente.")
+        toast.error("Ocorreu um erro ao enviar. Por favor, tente novamente.")
       }
     } catch {
-      alert("Erro de conexão. Verifique sua internet.")
+      toast.error("Erro de conexão. Verifique sua internet.")
     } finally {
       setIsSubmitting(false)
     }
@@ -255,26 +256,6 @@ export function DiagnosticoForm() {
         </div>
       </div>
 
-      <style jsx>{`
-        :global(.form-input) {
-          width: 100%;
-          background-color: transparent;
-          border: 0;
-          border-bottom: 1px solid var(--border);
-          padding: 0.75rem 0;
-          font-size: 1rem;
-          color: var(--foreground);
-          outline: none;
-          transition: border-color 0.2s ease;
-        }
-        :global(.form-input::placeholder) {
-          color: var(--muted-foreground);
-          opacity: 0.7;
-        }
-        :global(.form-input:focus) {
-          border-bottom-color: var(--primary);
-        }
-      `}</style>
     </section>
   )
 }

@@ -80,7 +80,7 @@ export function SiteNav() {
             aria-hidden="true"
           />
 
-          <div className="absolute inset-x-4 top-4 rounded-2xl border border-border/70 bg-[#101419]/98 backdrop-blur-md p-6 shadow-2xl">
+          <div className="absolute inset-x-4 top-4 rounded-2xl border border-border/70 bg-background/98 backdrop-blur-md p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-8">
               <Link
                 href="/"

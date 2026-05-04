@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { Toaster } from "sonner"
 import { SmoothScroll } from "@/components/smooth-scroll"
 import "./globals.css"
 
@@ -102,6 +103,7 @@ export default function RootLayout({
             }}
           />
           {children}
+          <Toaster theme="dark" position="bottom-right" />
           {process.env.NODE_ENV === "production" && <Analytics />}
         </SmoothScroll>
       </body>

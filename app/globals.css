@@ -95,7 +95,7 @@
   }
   html {
     @apply bg-background;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -129,5 +129,24 @@
       transparent
     );
     height: 1px;
+  }
+
+  .form-input {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .form-input::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.7;
+  }
+  .form-input:focus {
+    border-bottom-color: var(--primary);
   }
 }
