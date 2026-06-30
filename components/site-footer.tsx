@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { PineLogo } from "@/components/pine-logo"
+import { cityPages, servicePages } from "@/lib/seo-data"
 
 export function SiteFooter() {
   const ano = new Date().getFullYear()
@@ -7,7 +8,7 @@ export function SiteFooter() {
     <footer className="relative border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
         <div className="grid gap-12 md:grid-cols-12 md:gap-10">
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <PineLogo className="h-6 w-6 text-primary" />
               <span className="text-base tracking-[-0.01em] font-medium">
@@ -20,16 +21,16 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
               Navegar
             </div>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
               {[
-                { label: "Proximidade", href: "#proximidade" },
-                { label: "Soluções", href: "#solucoes" },
-                { label: "O Coletivo", href: "#coletivo" },
-                { label: "Diagnóstico", href: "#diagnostico" },
+                { label: "Proximidade", href: "/#proximidade" },
+                { label: "Soluções", href: "/#solucoes" },
+                { label: "O Coletivo", href: "/#coletivo" },
+                { label: "Diagnóstico", href: "/#diagnostico" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link
@@ -43,7 +44,25 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
+            <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+              Serviços
+            </div>
+            <ul className="mt-5 flex flex-col gap-3 text-sm">
+              {servicePages.slice(0, 4).map((service) => (
+                <li key={service.slug}>
+                  <Link
+                    href={`/servicos/${service.slug}`}
+                    className="text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {service.shortName}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:col-span-3">
             <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
               Contato direto
             </div>
@@ -80,6 +99,23 @@ export function SiteFooter() {
                 Tijucas, SC · atendimento para todo o Brasil
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-border/60 pt-8">
+          <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+            Atendimento regional
+          </div>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+            {cityPages.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/atendimento/${city.slug}`}
+                className="text-foreground/80 hover:text-primary transition-colors"
+              >
+                {city.name}
+              </Link>
+            ))}
           </div>
         </div>
 

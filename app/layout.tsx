@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "sonner"
 import { SmoothScroll } from "@/components/smooth-scroll"
+import { cityPages, primaryKeywords, servicePages, siteConfig } from "@/lib/seo-data"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -21,26 +22,34 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pinecollective.dev"),
-  title: "Pine Collective | Tecnologia sob medida para quem já fatura",
+  metadataBase: new URL(siteConfig.url),
+  title: "Pine Collective | Software personalizado, CRM e sistemas de gestão",
   description:
-    "Consultoria boutique de tecnologia. Digitalizamos e otimizamos pequenos e médios negócios cansados de processos manuais. Atenção dedicada, soluções customizadas, resultado real.",
+    "Software personalizado, sistema de gestão, CRM personalizado e automação para empresas que querem sair da planilha e escalar com controle.",
   keywords: [
-    "Consultoria de Tecnologia",
-    "Automação de Processos",
-    "Digitalização",
+    ...primaryKeywords,
     "Pine Collective",
-    "Eficiência Operacional",
-    "Tecnologia sob medida",
+    ...cityPages.map((city) => city.name),
   ],
-  authors: [{ name: "Pine Collective" }],
-  creator: "Pine Collective",
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Pine Collective | Consultoria Boutique de Tecnologia",
+    title: "Pine Collective | Software personalizado, CRM e sistemas de gestão",
     description:
-      "Tecnologia sob medida para eliminar processos manuais e escalar negócios que já faturam. Atenção dedicada, soluções customizadas.",
-    url: "https://pinecollective.dev",
-    siteName: "Pine Collective",
+      "Tecnologia sob medida para eliminar processos manuais: software personalizado, sistema de gestão, CRM personalizado e automação.",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: "pt_BR",
     type: "website",
     images: [
@@ -48,15 +57,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Pine Collective | Consultoria boutique de tecnologia",
+        alt: "Pine Collective | Software personalizado e CRM sob medida",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pine Collective | Consultoria Boutique de Tecnologia",
+    title: "Pine Collective | Software personalizado, CRM e sistemas de gestão",
     description:
-      "Tecnologia sob medida para eliminar processos manuais e escalar negócios que já faturam.",
+      "Software personalizado, sistema de gestão e CRM personalizado para empresas em crescimento.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -75,6 +84,55 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${siteConfig.url}/#organization`,
+    "name": siteConfig.name,
+    "url": siteConfig.url,
+    "logo": `${siteConfig.url}/pine-logo.png`,
+    "image": `${siteConfig.url}/og-image.png`,
+    "description": "Consultoria boutique de tecnologia em Tijucas, SC, especializada em software personalizado, sistemas de gestão, CRM personalizado, automação de processos e presença digital.",
+    "telephone": siteConfig.telephone,
+    "email": siteConfig.email,
+    "sameAs": [siteConfig.instagram],
+    "priceRange": "$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": siteConfig.city,
+      "addressRegion": siteConfig.region,
+      "addressCountry": siteConfig.country
+    },
+    "areaServed": cityPages.map((city) => ({
+      "@type": "Place",
+      "name": `${city.name}${city.region !== "BR" ? `, ${city.region}` : ""}`
+    })),
+    "knowsAbout": primaryKeywords,
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços de tecnologia sob medida",
+      "itemListElement": servicePages.map((service, index) => ({
+        "@type": "Offer",
+        "position": index + 1,
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.name,
+          "alternateName": service.aliases,
+          "description": service.summary,
+          "url": `${siteConfig.url}/servicos/${service.slug}`
+        }
+      }))
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": siteConfig.email,
+      "telephone": siteConfig.telephone,
+      "areaServed": "BR",
+      "availableLanguage": "pt-BR"
+    }
+  }
+
   return (
     <html
       lang="pt-BR"
@@ -85,22 +143,7 @@ export default function RootLayout({
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "ProfessionalService",
-                "name": "Pine Collective",
-                "image": "https://pinecollective.dev/og-image.png",
-                "description": "Consultoria boutique de tecnologia e automação para médias e pequenas empresas.",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Tijucas",
-                  "addressRegion": "SC",
-                  "addressCountry": "BR"
-                },
-                "url": "https://pinecollective.dev",
-                "sameAs": ["https://www.instagram.com/pinecollective.dev/"],
-                "priceRange": "$$$"
-              }),
+              __html: JSON.stringify(organizationSchema),
             }}
           />
           {children}

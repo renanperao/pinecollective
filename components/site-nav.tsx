@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react"
 import { PineLogo } from "@/components/pine-logo"
 
 const navLinks = [
-  { href: "#proximidade", label: "Proximidade" },
-  { href: "#solucoes", label: "Soluções" },
-  { href: "#coletivo", label: "O Coletivo" },
+  { href: "/#proximidade", label: "Proximidade" },
+  { href: "/#solucoes", label: "Soluções" },
+  { href: "/#coletivo", label: "O Coletivo" },
 ]
 
 export function SiteNav() {
@@ -49,7 +49,7 @@ export function SiteNav() {
 
             <div className="flex items-center gap-3">
               <Link
-                href="#diagnostico"
+                href="/#diagnostico"
                 className="group inline-flex items-center gap-2 text-sm rounded-full border border-border/80 bg-secondary/40 px-4 py-2 text-foreground hover:border-primary/60 hover:bg-secondary transition-colors"
               >
                 <span className="relative flex h-1.5 w-1.5">
@@ -116,7 +116,7 @@ export function SiteNav() {
 
             <div className="mt-6 pt-6 border-t border-border/60">
               <Link
-                href="#diagnostico"
+                href="/#diagnostico"
                 onClick={close}
                 className="flex items-center justify-center gap-2.5 w-full rounded-full border border-primary/50 bg-primary/10 px-6 py-3.5 text-primary font-medium transition-colors hover:bg-primary/20"
               >
