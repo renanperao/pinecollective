@@ -76,7 +76,7 @@ export default async function CityPage({ params }: PageProps) {
     },
     "areaServed": {
       "@type": "Place",
-      "name": `${city.name}${city.region !== "BR" ? `, ${city.region}` : ""}`,
+      "name": `${city.name}, ${city.region}`,
     },
   }
 
@@ -137,7 +137,7 @@ export default async function CityPage({ params }: PageProps) {
             <div className="flex items-center gap-3 text-primary">
               <MapPin className="h-5 w-5" />
               <span className="text-sm font-medium tracking-tight">
-                {city.name}{city.region !== "BR" ? `, ${city.region}` : ""}
+                {city.name}, {city.region}
               </span>
             </div>
             <h2 className="mt-6 text-lg font-medium tracking-tight">

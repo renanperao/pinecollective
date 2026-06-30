@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: PageProps) {
     },
     "areaServed": cityPages.map((city) => ({
       "@type": "Place",
-      "name": `${city.name}${city.region !== "BR" ? `, ${city.region}` : ""}`,
+      "name": `${city.name}, ${city.region}`,
     })),
   }
 

@@ -155,15 +155,15 @@ export const servicePages = [
 
 export const cityPages = [
   {
-    slug: "iguacu",
-    name: "Iguaçu",
-    region: "BR",
-    metaTitle: "Software personalizado em Iguaçu | Pine Collective",
+    slug: "biguacu",
+    name: "Biguaçu",
+    region: "SC",
+    metaTitle: "Software personalizado em Biguaçu | Pine Collective",
     metaDescription:
-      "Atendimento para empresas de Iguaçu que precisam de software personalizado, sistema de gestão, CRM personalizado e automação de processos.",
+      "Atendimento para empresas de Biguaçu que precisam de software personalizado, sistema de gestão, CRM personalizado e automação de processos.",
     nearby:
       "Atendimento remoto e consultivo para empresas que buscam proximidade, diagnóstico claro e tecnologia sob medida.",
-    aliases: ["Iguaçu"],
+    aliases: ["Biguaçu", "Biguacu"],
   },
   {
     slug: "florianopolis",
