@@ -101,7 +101,9 @@ export default function PrivacidadePage() {
               Dúvidas sobre esta política? Fale conosco:{" "}
               <a href="mailto:contato@pinecollective.dev" className="text-primary hover:underline">contato@pinecollective.dev</a>
               {" "}ou{" "}
-              <a href="https://wa.me/5548992163070" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(48) 99216-3070</a>.
+              <a href="https://wa.me/5548992163070" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(48) 99216-3070</a>
+              {" "}ou pelo{" "}
+              <a href="https://www.instagram.com/pinecollective.dev/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Instagram</a>.
             </p>
           </section>
         </div>

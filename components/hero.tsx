@@ -68,7 +68,7 @@ function DashboardMockup() {
 
             {/* Chart */}
             <div className="rounded-lg border border-border/50 bg-secondary/20 p-2.5">
-              <div className="text-[8px] text-muted-foreground/70 mb-2">Faturamento — últimos 12 meses</div>
+              <div className="text-[8px] text-muted-foreground/70 mb-2">Faturamento · últimos 12 meses</div>
               <div className="flex items-end gap-0.5 h-14">
                 {[38, 52, 44, 61, 48, 72, 58, 80, 65, 88, 74, 95].map((h, i) => (
                   <div
@@ -150,9 +150,9 @@ export function Hero() {
             </h1>
 
             <p className="mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-muted-foreground">
-              Na Pine Collective, não entregamos apenas sistemas. Nós entramos na
-              sua operação, ouvimos seus problemas e construímos a ferramenta exata
-              para sua empresa escalar com inteligência.
+              A gente não entrega só sistema. Entra na sua operação, entende o
+              problema de verdade e constrói a ferramenta exata pra sua empresa
+              escalar sem caos.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">

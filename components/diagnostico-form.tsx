@@ -45,22 +45,18 @@ export function DiagnosticoForm() {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true)
 
-    const formData = new FormData()
-    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "")
-    formData.append("subject", `Novo Diagnóstico: ${data.empresa}`)
-    formData.append("from_name", "Pine Collective Website")
-    Object.entries(data).forEach(([k, v]) => formData.append(k, v))
-
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/diagnostico", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       })
-      const json = await res.json()
-      if (json.success) {
+      const result = await response.json().catch(() => null)
+
+      if (response.ok && result?.success) {
         setEnviado(true)
       } else {
-        toast.error("Ocorreu um erro ao enviar. Por favor, tente novamente.")
+        toast.error(result?.message ?? "Ocorreu um erro ao enviar. Por favor, tente novamente.")
       }
     } catch {
       toast.error("Erro de conexão. Verifique sua internet.")
@@ -71,7 +67,7 @@ export function DiagnosticoForm() {
 
   const { onChange: onPhoneChange, ...phoneRest } = register("telefone", {
     required: "WhatsApp é obrigatório",
-    minLength: { value: 14, message: "Número inválido — use (00) 00000-0000" },
+    minLength: { value: 14, message: "Número inválido: use (00) 00000-0000" },
   })
 
   return (
@@ -116,7 +112,7 @@ export function DiagnosticoForm() {
             </ul>
           </div>
 
-          {/* Right col — form */}
+          {/* Right col / form */}
           <div className="lg:col-span-7">
             <div className="rounded-2xl border border-border/70 bg-card/40 p-6 md:p-10">
               {enviado ? (
@@ -255,7 +251,6 @@ export function DiagnosticoForm() {
           </div>
         </div>
       </div>
-
     </section>
   )
 }

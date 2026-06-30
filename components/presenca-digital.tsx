@@ -3,27 +3,27 @@ import { Gauge, ShieldCheck, Zap, BarChart3, ArrowUpRight } from "lucide-react"
 const diferenciais = [
   {
     icon: Gauge,
-    title: "Engenharia de Performance Brutal",
+    title: "Carrega rápido",
     description:
-      "Desenvolvemos em Next.js e Tailwind para garantir carregamento instantâneo. Em um mercado de segundos, a velocidade é o seu maior diferencial competitivo.",
+      "A gente desenvolve em Next.js e Tailwind. Site leve, que abre na hora. Cada segundo de espera é cliente que desiste.",
   },
   {
     icon: ShieldCheck,
-    title: "Infraestrutura de Autoridade",
+    title: "Sob medida, não template",
     description:
-      "Sua empresa não é genérica, seu site também não deve ser. Criamos interfaces sob medida que transmitem a solidez e a exclusividade que seu faturamento exige.",
+      "Sua empresa não é genérica, seu site também não. A gente desenha do zero, com a cara da sua operação.",
   },
   {
     icon: Zap,
-    title: "SEO e Arquitetura de Elite",
+    title: "Achado no Google",
     description:
-      "Código limpo focado em conversão. Garantimos que sua empresa seja encontrada por quem importa, ocupando o topo dos resultados com autoridade técnica.",
+      "Código limpo, focado em conversão. A gente estrutura pra você aparecer pra quem já procura o que você faz.",
   },
   {
     icon: BarChart3,
-    title: "Foco Total em Business",
+    title: "Feito pra converter",
     description:
-      "Um site amador é um ralo de dinheiro. Nossa engenharia foca em transformar visitantes em oportunidades reais, eliminando a invisibilidade digital.",
+      "Site não é cartão de visita parado. A gente arquiteta cada página pra transformar quem chega em oportunidade real.",
   },
 ]
 
@@ -38,18 +38,19 @@ export function PresencaDigital() {
           <div>
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
               <span className="h-px w-8 bg-primary" />
-              Presença Digital de Elite
+              Presença digital
             </div>
             
             <h2 className="mt-6 text-balance text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.02em] leading-[1.05]">
-              Sua autoridade exige uma{" "}
+              Da presença que{" "}
               <span className="font-serif italic font-normal text-primary">
-                infraestrutura à altura.
-              </span>
+                atrai
+              </span>{" "}
+              ao sistema que organiza.
             </h2>
             
             <p className="mt-8 text-base md:text-lg leading-relaxed text-muted-foreground max-w-md">
-              Não criamos sites. Engenheiramos interfaces de alta performance que servem como a porta de entrada para a digitalização total do seu negócio.
+              O site é a vitrine do seu negócio. A gente constrói pra carregar rápido, aparecer no Google e transformar visita em conversa.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -58,7 +59,7 @@ export function PresencaDigital() {
                 className="group inline-flex items-center justify-between gap-6 rounded-full bg-primary pl-6 pr-2 py-2 text-primary-foreground transition-all hover:bg-primary/90"
               >
                 <span className="text-sm font-medium tracking-tight">
-                  Solicitar Diagnóstico de Presença
+                  Falar sobre o site
                 </span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-background/15 transition-transform group-hover:rotate-45">
                   <ArrowUpRight className="h-4 w-4" strokeWidth={2.2} />

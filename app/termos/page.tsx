@@ -47,7 +47,7 @@ export default function TermosPage() {
           <section>
             <h2 className="text-xl font-medium tracking-tight mb-4">2. Descrição dos serviços</h2>
             <p className="text-muted-foreground">
-              A Pine Collective oferece consultoria boutique de tecnologia, incluindo — mas não se limitando a — digitalização de processos,
+              A Pine Collective oferece consultoria boutique de tecnologia, incluindo, entre outros, digitalização de processos,
               automação inteligente, desenvolvimento de soluções customizadas e presença digital de alta performance.
               Os serviços são prestados mediante proposta formal e contrato específico para cada projeto.
             </p>
@@ -64,7 +64,7 @@ export default function TermosPage() {
           <section>
             <h2 className="text-xl font-medium tracking-tight mb-4">4. Propriedade intelectual</h2>
             <p className="text-muted-foreground">
-              Todo o conteúdo deste site — textos, design, código e logotipos — é de propriedade exclusiva da Pine Collective.
+              Todo o conteúdo deste site, incluindo textos, design, código e logotipos, é de propriedade exclusiva da Pine Collective.
               É proibida a reprodução, cópia ou distribuição sem autorização prévia por escrito.
               Os entregáveis de cada projeto têm propriedade intelectual definida no contrato específico.
             </p>
@@ -101,7 +101,9 @@ export default function TermosPage() {
               Dúvidas sobre estes termos? Fale conosco:{" "}
               <a href="mailto:contato@pinecollective.dev" className="text-primary hover:underline">contato@pinecollective.dev</a>
               {" "}ou{" "}
-              <a href="https://wa.me/5548992163070" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(48) 99216-3070</a>.
+              <a href="https://wa.me/5548992163070" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(48) 99216-3070</a>
+              {" "}ou pelo{" "}
+              <a href="https://www.instagram.com/pinecollective.dev/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Instagram</a>.
             </p>
           </section>
         </div>

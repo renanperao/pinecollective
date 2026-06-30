@@ -66,6 +66,16 @@ export function SiteFooter() {
                   (48) 99216-3070
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/pinecollective.dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Instagram @pinecollective.dev
+                </a>
+              </li>
               <li className="text-muted-foreground">
                 Tijucas, SC · atendimento para todo o Brasil
               </li>

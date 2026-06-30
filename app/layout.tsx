@@ -98,6 +98,7 @@ export default function RootLayout({
                   "addressCountry": "BR"
                 },
                 "url": "https://pinecollective.dev",
+                "sameAs": ["https://www.instagram.com/pinecollective.dev/"],
                 "priceRange": "$$$"
               }),
             }}
