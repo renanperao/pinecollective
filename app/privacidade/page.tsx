@@ -24,12 +24,12 @@ export default function PrivacidadePage() {
       </header>
 
       <main id="conteudo" className="mx-auto max-w-4xl px-6 py-16 md:py-24">
-        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground mb-8">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium mb-8">
           <span className="h-px w-8 bg-primary" />
           LGPD · Lei nº 13.709/2018
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-medium tracking-[-0.02em] leading-[1.1] mb-4">
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.02em] leading-[1.1] mb-4">
           Política de{" "}
           <span className="font-serif italic font-normal text-primary">Privacidade</span>
         </h1>
@@ -39,7 +39,7 @@ export default function PrivacidadePage() {
           <section>
             <h2 className="text-xl font-medium tracking-tight mb-4">1. Quem somos</h2>
             <p className="text-muted-foreground">
-              A <strong className="text-foreground">Pine Collective</strong> é uma consultoria boutique de tecnologia com sede em Tijucas, SC,
+              A <strong className="text-foreground">Pine Collective</strong> é uma consultoria boutique de tecnologia sediada em Santa Catarina,
               que presta serviços de digitalização, automação e desenvolvimento de soluções customizadas para pequenas e médias empresas em todo o Brasil.
               Este documento descreve como coletamos, usamos e protegemos seus dados pessoais em conformidade com a Lei Geral de Proteção de Dados (LGPD).
             </p>

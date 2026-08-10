@@ -20,7 +20,7 @@
   --secondary-foreground: #f3efe9;
 
   --muted: #1a2027;
-  --muted-foreground: #8a8f96;
+  --muted-foreground: #b0b5bd;
 
   --accent: #e05f21;
   --accent-foreground: #ffffff;
@@ -153,6 +153,38 @@
   }
   .form-input[aria-invalid='true'] {
     border-bottom-color: var(--destructive);
+  }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-track:hover,
+  .marquee-track:focus-within {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 3%,
+      #000 97%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 3%,
+      #000 97%,
+      transparent 100%
+    );
   }
 
   .scrollbar-none {

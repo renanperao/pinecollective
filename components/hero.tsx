@@ -9,8 +9,7 @@ function DashboardMockup() {
         className="absolute -inset-4 rounded-3xl blur-2xl"
         style={{ background: "radial-gradient(ellipse at 60% 40%, rgba(224,95,33,0.08), transparent 70%)" }}
       />
-      <div className="relative rounded-2xl border border-border/70 bg-card overflow-hidden shadow-2xl shadow-black/40">
-        {/* Browser chrome */}
+      <div className="relative rounded-2xl border border-primary/30 bg-card overflow-hidden [box-shadow:0_25px_50px_-12px_rgb(0_0_0_/_0.45),0_0_80px_-20px_rgba(224,95,33,0.2)]">
         <div className="flex items-center gap-3 px-4 py-2.5 border-b border-border/60 bg-secondary/60">
           <div className="flex gap-1.5">
             <div className="h-2 w-2 rounded-full bg-border/80" />
@@ -22,9 +21,7 @@ function DashboardMockup() {
           </div>
         </div>
 
-        {/* Dashboard */}
         <div className="flex bg-[#0d1117]">
-          {/* Sidebar */}
           <div className="w-28 shrink-0 border-r border-border/40 p-2 flex flex-col gap-0.5">
             <div className="px-2 py-1.5 mb-2">
               <div className="h-2 w-16 bg-primary/50 rounded" />
@@ -49,31 +46,28 @@ function DashboardMockup() {
             ))}
           </div>
 
-          {/* Main */}
           <div className="flex-1 p-3 flex flex-col gap-2.5 min-w-0">
-            {/* KPI row */}
             <div className="grid grid-cols-3 gap-2">
               {[
-                { label: "Receita mensal", value: "R$ 48.2k", change: "+12%", up: true },
-                { label: "Pedidos", value: "1.284", change: "+8%", up: true },
-                { label: "Conversão", value: "3.4%", change: "+0.6%", up: true },
+                { label: "Receita mensal", value: "R$ 48.2k", change: "+12%" },
+                { label: "Pedidos", value: "1.284", change: "+8%" },
+                { label: "Conversão", value: "3.4%", change: "+0.6%" },
               ].map((m) => (
                 <div key={m.label} className="rounded-lg border border-border/50 bg-secondary/20 p-2">
                   <div className="text-[8px] text-muted-foreground/70 leading-none">{m.label}</div>
-                  <div className="text-[11px] font-semibold text-foreground mt-1 leading-none">{m.value}</div>
-                  <div className="text-[8px] text-primary mt-1 leading-none">{m.change}</div>
+                  <div className="text-[11px] font-semibold text-foreground mt-1 leading-none tabular-nums">{m.value}</div>
+                  <div className="text-[8px] text-primary mt-1 leading-none tabular-nums">{m.change}</div>
                 </div>
               ))}
             </div>
 
-            {/* Chart */}
             <div className="rounded-lg border border-border/50 bg-secondary/20 p-2.5">
               <div className="text-[8px] text-muted-foreground/70 mb-2">Faturamento · últimos 12 meses</div>
               <div className="flex items-end gap-0.5 h-14">
                 {[38, 52, 44, 61, 48, 72, 58, 80, 65, 88, 74, 95].map((h, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-sm transition-all"
+                    className="flex-1 rounded-sm"
                     style={{
                       height: `${h}%`,
                       backgroundColor: i === 11 ? "var(--primary)" : `rgba(224,95,33,${0.15 + i * 0.015})`,
@@ -88,7 +82,6 @@ function DashboardMockup() {
               </div>
             </div>
 
-            {/* Recent orders */}
             <div className="rounded-lg border border-border/50 bg-secondary/20 p-2.5">
               <div className="text-[8px] text-muted-foreground/70 mb-1.5">Pedidos recentes</div>
               {[
@@ -100,7 +93,7 @@ function DashboardMockup() {
                   key={row.id}
                   className={`flex items-center justify-between py-1 ${i > 0 ? "border-t border-border/30" : ""}`}
                 >
-                  <span className="font-mono text-[8px] text-muted-foreground/60 w-10">{row.id}</span>
+                  <span className="font-mono text-[8px] text-muted-foreground/60 w-10 tabular-nums">{row.id}</span>
                   <span className="text-[8px] text-muted-foreground/80 flex-1 px-1 truncate">{row.client}</span>
                   <span className={`text-[7px] px-1.5 py-0.5 rounded-full mr-1 ${
                     row.status === "Entregue"
@@ -109,7 +102,7 @@ function DashboardMockup() {
                   }`}>
                     {row.status}
                   </span>
-                  <span className="text-[8px] text-foreground/80 w-10 text-right">{row.val}</span>
+                  <span className="text-[8px] text-foreground/80 w-10 text-right tabular-nums">{row.val}</span>
                 </div>
               ))}
             </div>
@@ -138,26 +131,25 @@ export function Hero() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-10 items-center">
           <div className="lg:col-span-6">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium">
               <span className="h-px w-8 bg-primary" aria-hidden="true" />
               Consultoria boutique de tecnologia
             </div>
 
             <h1
               id="hero-titulo"
-              className="mt-6 sm:mt-8 text-balance font-sans text-[2rem] sm:text-[2.5rem] leading-[1.05] tracking-[-0.02em] md:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-medium"
+              className="mt-6 sm:mt-8 text-balance font-sans text-[2.25rem] leading-[1.02] tracking-[-0.025em] sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] xl:text-[4rem] font-semibold"
             >
-              Tecnologia{" "}
+              Software que{" "}
               <span className="font-serif italic font-normal text-primary">
-                sob medida
-              </span>{" "}
-              para quem já fatura, mas cansou de processos lentos e manuais.
+                não se explica
+              </span>
+              . Só se usa.
             </h1>
 
-            <p className="mt-6 sm:mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-muted-foreground">
-              A gente não entrega só sistema. Entra na sua operação, entende o
-              problema de verdade e constrói a ferramenta exata pra sua empresa
-              escalar sem caos.
+            <p className="mt-6 sm:mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-foreground/90">
+              Você não precisa de mais um sistema. Precisa do seu, feito por
+              quem entende como sua operação respira e assina o próprio código.
             </p>
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
@@ -166,7 +158,7 @@ export function Hero() {
                 className="group inline-flex items-center justify-between gap-4 sm:gap-6 rounded-full bg-primary pl-5 sm:pl-6 pr-2 h-14 sm:h-[52px] text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] transform-gpu"
               >
                 <span className="text-base font-medium tracking-tight">
-                  Agendar diagnóstico pessoal
+                  Iniciar diagnóstico
                 </span>
                 <span
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-background/15 transition-transform duration-200 group-hover:rotate-45"
@@ -198,10 +190,10 @@ export function Hero() {
 
         <dl className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-y-6 sm:gap-y-8 gap-x-6 sm:gap-x-10 border-t border-border/60 pt-8 sm:pt-10">
           {[
-            { k: "Atendimento", v: "1:1, sem intermediários" },
-            { k: "Especialistas", v: "Sêniores sob demanda" },
+            { k: "Escopo", v: "Sob medida por nicho" },
+            { k: "Interlocução", v: "Direta com o sócio" },
+            { k: "Entrega", v: "Em ondas curtas" },
             { k: "Foco", v: "PMEs em crescimento" },
-            { k: "Entrega", v: "Customizada por nicho" },
           ].map((item) => (
             <div key={item.k} className="flex flex-col gap-1.5">
               <dt className="text-xs uppercase tracking-[0.16em] text-muted-foreground/80">

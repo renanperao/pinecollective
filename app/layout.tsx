@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "sonner"
 import { SmoothScroll } from "@/components/smooth-scroll"
+import { ScrollToTop } from "@/components/scroll-to-top"
 import { cityPages, primaryKeywords, servicePages, siteConfig } from "@/lib/seo-data"
 import "./globals.css"
 
@@ -136,6 +137,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      spellCheck={false}
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} selection:bg-primary selection:text-primary-foreground bg-background`}
     >
       <body className="font-sans antialiased">
@@ -143,6 +145,7 @@ export default function RootLayout({
           Pular para o conteúdo
         </a>
         <SmoothScroll>
+          <ScrollToTop />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{

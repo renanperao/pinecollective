@@ -71,31 +71,87 @@ function AutomacaoPreview() {
 
 function CustomizadaPreview() {
   return (
-    <div className="rounded-xl border border-border/50 bg-background/60 overflow-hidden mb-6">
-      <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b border-border/40 bg-secondary/40">
-        <div className="h-1.5 w-1.5 rounded-full bg-border/60" />
-        <div className="h-1.5 w-1.5 rounded-full bg-border/60" />
-        <div className="h-1.5 w-1.5 rounded-full bg-border/60" />
-        <div className="ml-1 h-2.5 flex-1 rounded bg-background/50" />
+    <div className="rounded-xl border border-border/50 bg-background/60 p-3 mb-6">
+      <div className="text-[9px] font-mono text-muted-foreground/60 mb-2 uppercase tracking-widest">
+        Módulo do nicho
       </div>
-      <div className="p-3">
-        <div className="flex justify-between items-center mb-3">
-          <div className="h-2 w-10 bg-muted-foreground/20 rounded" />
-          <div className="flex gap-1">
-            {[1, 2, 3].map(i => <div key={i} className="h-2 w-5 bg-muted-foreground/15 rounded" />)}
+
+      <div className="grid grid-cols-5 gap-2">
+        <div className="col-span-2 rounded-md border border-border/50 bg-secondary/30 p-2">
+          <div className="text-[7px] uppercase tracking-widest text-muted-foreground/60 mb-1.5">
+            Agenda
+          </div>
+          <div className="space-y-1">
+            {[
+              { h: "08h", label: "Retorno", on: true },
+              { h: "10h", label: "Avaliação", on: false },
+              { h: "14h", label: "Consulta", on: true },
+            ].map((r) => (
+              <div
+                key={r.h}
+                className="flex items-center gap-1.5"
+              >
+                <span className="font-mono text-[7px] text-muted-foreground/60 w-4 tabular-nums">
+                  {r.h}
+                </span>
+                <span
+                  className={`h-1 flex-1 rounded ${
+                    r.on ? "bg-primary/70" : "bg-border/50"
+                  }`}
+                />
+                <span className="text-[7px] text-muted-foreground/70 w-8 truncate">
+                  {r.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="h-3 w-3/4 bg-foreground/25 rounded mb-1.5" />
-        <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mb-3" />
-        <div className="h-5 w-20 rounded-full bg-primary/60 mb-3" />
-        <div className="grid grid-cols-3 gap-1.5">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="rounded-lg border border-border/40 bg-secondary/30 p-1.5">
-              <div className="h-1.5 w-4 bg-primary/30 rounded mb-1" />
-              <div className="h-1.5 w-8 bg-muted-foreground/20 rounded" />
+
+        <div className="col-span-3 rounded-md border border-border/50 bg-secondary/30 p-2">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[7px] uppercase tracking-widest text-muted-foreground/60">
+              Ficha do cliente
+            </span>
+            <span className="text-[7px] px-1 py-0.5 rounded bg-primary/15 text-primary">
+              Ativo
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="h-4 w-4 rounded-full bg-primary/40 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="h-1.5 w-14 bg-foreground/40 rounded mb-0.5" />
+              <div className="h-1 w-10 bg-muted-foreground/25 rounded" />
             </div>
-          ))}
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            {[
+              { k: "Visitas", v: "12" },
+              { k: "Ticket", v: "R$ 480" },
+              { k: "Score", v: "9.2" },
+            ].map((m) => (
+              <div key={m.k} className="rounded border border-border/40 px-1 py-1">
+                <div className="text-[6px] uppercase tracking-widest text-muted-foreground/50 leading-none mb-0.5">
+                  {m.k}
+                </div>
+                <div className="text-[8px] font-semibold text-foreground leading-none tabular-nums">
+                  {m.v}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between rounded-md border border-border/50 bg-secondary/30 px-2 py-1.5">
+        <div className="flex items-center gap-1.5">
+          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+          <span className="text-[7px] uppercase tracking-widest text-muted-foreground/70">
+            Regra do nicho
+          </span>
+        </div>
+        <span className="text-[8px] text-foreground/80">
+          Confirma se ausência {`>`} 60d
+        </span>
       </div>
     </div>
   )
@@ -107,7 +163,7 @@ const items = [
     label: "01",
     title: "Digitalização de processos",
     description:
-      "Transformamos sua planilha confusa ou processo manual em um sistema de gestão fluido e inteligente.",
+      "Sua planilha vira sistema. Seu processo manual vira fluxo. Sem mudar como sua equipe pensa.",
     preview: <DigitalizacaoPreview />,
   },
   {
@@ -115,15 +171,15 @@ const items = [
     label: "02",
     title: "Automação inteligente",
     description:
-      "Eliminamos tarefas repetitivas para que sua equipe foque no que realmente traz lucro.",
+      "O que é repetitivo, o computador faz. O que exige julgamento, sua equipe.",
     preview: <AutomacaoPreview />,
   },
   {
     icon: Boxes,
     label: "03",
-    title: "Soluções customizadas",
+    title: "Soluções sob medida",
     description:
-      "Nada de ferramentas genéricas. Criamos o que o seu nicho exige e o que o seu cliente espera.",
+      "Sistema desenhado no formato do seu nicho, não adaptado de um genérico.",
     preview: <CustomizadaPreview />,
   },
 ]
@@ -132,30 +188,29 @@ export function Solucoes() {
   return (
     <section
       id="solucoes"
-      className="relative py-20 sm:py-28 md:py-36 border-t border-border/60"
+      className="relative py-24 sm:py-32 border-t border-border/60"
       aria-labelledby="solucoes-titulo"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium">
               <span className="h-px w-8 bg-primary" aria-hidden="true" />
               Onde resolvemos
             </div>
             <h2
               id="solucoes-titulo"
-              className="mt-6 text-balance text-3xl sm:text-4xl md:text-5xl font-medium tracking-[-0.015em] leading-[1.1]"
+              className="mt-6 text-balance text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.015em] leading-[1.1]"
             >
-              Três frentes,{" "}
+              Três frentes. Uma promessa:{" "}
               <span className="font-serif italic font-normal text-primary">
-                um único compromisso:
-              </span>{" "}
-              destravar sua operação.
+                sua planilha nunca mais.
+              </span>
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-            Cada projeto começa com um diagnóstico real do seu gargalo, e
-            termina com uma ferramenta que sua equipe usa todos os dias.
+            Cada projeto nasce de um gargalo real e vira ferramenta que sua
+            equipe abre todo dia. Sem nada no meio.
           </p>
         </div>
 
@@ -179,7 +234,7 @@ export function Solucoes() {
                 </span>
               </div>
 
-              <h3 className="mt-6 text-xl md:text-2xl font-medium tracking-[-0.01em] leading-snug">
+              <h3 className="mt-6 text-xl md:text-2xl font-semibold tracking-[-0.01em] leading-snug">
                 {title}
               </h3>
               <p className="mt-3 text-sm md:text-[0.95rem] text-muted-foreground leading-relaxed">

@@ -73,37 +73,39 @@ export function DiagnosticoForm() {
   return (
     <section
       id="diagnostico"
-      className="relative py-20 sm:py-28 md:py-40 border-t border-border/60"
+      className="relative py-24 sm:py-32 border-t border-border/60"
       aria-labelledby="diagnostico-titulo"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-20">
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium">
               <span className="h-px w-8 bg-primary" aria-hidden="true" />
-              Diagnóstico pessoal
+              Diagnóstico
             </div>
 
             <h2
               id="diagnostico-titulo"
-              className="mt-6 text-balance text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-medium tracking-[-0.02em] leading-[1.05]"
+              className="mt-6 text-balance text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-semibold tracking-[-0.02em] leading-[1.05]"
             >
-              Sua operação merece um{" "}
+              Comece pelo{" "}
               <span className="font-serif italic font-normal text-primary">
-                cérebro digital.
+                gargalo
               </span>
+              . Não pela ferramenta.
             </h2>
 
-            <p className="mt-6 sm:mt-8 text-base md:text-lg leading-relaxed text-muted-foreground max-w-md">
-              Conte sobre o gargalo do seu negócio. Em breve voltamos com um
-              diagnóstico inicial, sem custo e sem compromisso.
+            <p className="mt-6 sm:mt-8 text-base md:text-lg leading-relaxed text-foreground/80 max-w-md">
+              45 minutos com um sócio da Pine. Sem apresentação comercial, sem
+              gerente. Você conta o problema real, a gente devolve um plano
+              concreto.
             </p>
 
             <ul className="mt-8 sm:mt-10 space-y-4 text-sm text-muted-foreground">
               {[
-                "Conversa de 45 min com um sócio da Pine",
-                "Mapeamento dos seus 3 maiores gargalos",
-                "Recomendação inicial e próximos passos",
+                "Conversa direta com Renan ou Luis, sem intermediário",
+                "Mapeamento dos 3 gargalos que mais custam hoje",
+                "Recomendação técnica e próximos passos, mesmo sem contratar",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span
@@ -129,7 +131,7 @@ export function DiagnosticoForm() {
                     <Check className="h-6 w-6" strokeWidth={2} />
                   </span>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-medium tracking-[-0.01em]">
+                    <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
                       Recebido. Obrigado pela confiança.
                     </h3>
                     <p className="mt-3 text-muted-foreground max-w-md leading-relaxed">

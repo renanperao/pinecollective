@@ -101,7 +101,7 @@ export default async function CityPage({ params }: PageProps) {
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium">
               <span className="h-px w-8 bg-primary" />
               Atendimento regional
             </div>
@@ -111,7 +111,7 @@ export default async function CityPage({ params }: PageProps) {
                 {city.name}.
               </span>
             </h1>
-            <p className="mt-8 max-w-2xl text-base md:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-8 max-w-2xl text-base md:text-lg leading-relaxed text-foreground/80">
               {city.nearby}
             </p>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">

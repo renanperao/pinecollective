@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
 import { PineLogo } from "@/components/pine-logo"
 
 const navLinks = [
-  { href: "/#proximidade", label: "Proximidade" },
-  { href: "/#solucoes", label: "Soluções" },
-  { href: "/#coletivo", label: "O Coletivo" },
+  { href: "/solucoes", label: "Soluções" },
+  { href: "/equipe", label: "Equipe" },
+  { href: "/contato", label: "Contato" },
 ]
 
 export function SiteNav() {
@@ -68,65 +68,66 @@ export function SiteNav() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-4 sm:py-5">
-          <nav
-            aria-label="Navegação principal"
-            className={`flex items-center justify-between rounded-2xl border px-4 sm:px-5 py-2.5 sm:py-3 transition-[background-color,border-color,box-shadow] duration-300 ${
-              scrolled
-                ? "border-border/80 bg-background/85 backdrop-blur-md shadow-lg shadow-black/20"
-                : "border-border/60 bg-background/70 backdrop-blur-md"
-            }`}
+      <header
+        className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
+          scrolled
+            ? "bg-background/98 backdrop-blur-xl border-b border-border shadow-xl shadow-black/30"
+            : "bg-background/95 backdrop-blur-md border-b border-border/80"
+        }`}
+      >
+        <nav
+          aria-label="Navegação principal"
+          className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10 h-20 sm:h-24"
+        >
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 text-foreground rounded-md"
+            aria-label="Pine Collective, Início"
           >
+            <PineLogo className="h-6 w-6 text-primary" />
+            <span className="text-sm sm:text-base tracking-[-0.01em] font-medium">
+              Pine<span className="text-muted-foreground"> Collective</span>
+            </span>
+          </Link>
+
+          <ul className="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium">
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="relative py-1 text-foreground/80 hover:text-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:after:scale-x-100"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
-              href="/"
-              className="flex items-center gap-2.5 text-foreground rounded-md"
-              aria-label="Pine Collective, Início"
+              href="/contato"
+              className="group hidden sm:inline-flex items-center gap-2 text-xs sm:text-sm rounded-full border border-primary/50 bg-transparent px-4 h-10 text-foreground hover:border-primary hover:bg-primary/10 transition-colors active:scale-[0.97] transform-gpu"
             >
-              <PineLogo className="h-6 w-6 text-primary" />
-              <span className="text-sm tracking-[-0.01em] font-medium">
-                Pine<span className="text-muted-foreground"> Collective</span>
+              <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
               </span>
+              Agendas abertas
+              <ArrowUpRight className="h-3.5 w-3.5 text-primary" strokeWidth={2.2} aria-hidden="true" />
             </Link>
 
-            <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-              {navLinks.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="relative py-1 hover:text-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:after:scale-x-100"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Link
-                href="/#diagnostico"
-                className="group inline-flex items-center gap-2 text-xs sm:text-sm rounded-full border border-border/80 bg-secondary/40 px-3 sm:px-4 h-11 text-foreground hover:border-primary/60 hover:bg-secondary transition-colors active:scale-[0.97] transform-gpu"
-              >
-                <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-                </span>
-                Agendas abertas
-              </Link>
-
-              <button
-                ref={openerRef}
-                onClick={() => setMobileOpen(true)}
-                className="md:hidden flex items-center justify-center h-11 w-11 rounded-xl border border-border/80 bg-secondary/40 text-muted-foreground hover:text-foreground hover:border-border transition-colors active:scale-[0.94] transform-gpu"
-                aria-label="Abrir menu de navegação"
-                aria-expanded={mobileOpen}
-                aria-controls="mobile-menu-panel"
-              >
-                <Menu className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-          </nav>
-        </div>
+            <button
+              ref={openerRef}
+              onClick={() => setMobileOpen(true)}
+              className="md:hidden flex items-center justify-center h-11 w-11 rounded-xl border border-border/80 bg-secondary/40 text-muted-foreground hover:text-foreground hover:border-border transition-colors active:scale-[0.94] transform-gpu"
+              aria-label="Abrir menu de navegação"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu-panel"
+            >
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </nav>
       </header>
 
       {mobileOpen && (
@@ -183,7 +184,7 @@ export function SiteNav() {
 
             <div className="mt-6 pt-6 border-t border-border/60">
               <Link
-                href="/#diagnostico"
+                href="/contato"
                 onClick={close}
                 className="flex items-center justify-center gap-2.5 w-full rounded-full border border-primary/50 bg-primary/10 px-6 min-h-[48px] text-primary font-medium transition-colors hover:bg-primary/20 active:scale-[0.98] transform-gpu"
               >

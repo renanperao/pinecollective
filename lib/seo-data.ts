@@ -21,6 +21,10 @@ export const primaryKeywords = [
   "desenvolvimento de CRM",
   "automação de processos",
   "digitalização de processos",
+  "criação de sites",
+  "landing page",
+  "criação de landing page",
+  "site profissional",
   "consultoria de tecnologia",
 ]
 
@@ -128,24 +132,29 @@ export const servicePages = [
   },
   {
     slug: "presenca-digital",
-    name: "Presença digital",
-    shortName: "Presença digital",
-    metaTitle: "Site profissional, SEO e presença digital | Pine Collective",
+    name: "Sites e landing pages",
+    shortName: "Sites & landing pages",
+    metaTitle: "Sites, landing pages e SEO sob medida | Pine Collective",
     metaDescription:
-      "Criamos sites profissionais, rápidos e preparados para SEO, com presença digital conectada ao crescimento e à operação da empresa.",
-    headline: "Presença digital que abre conversa e prepara o próximo sistema.",
+      "Criamos sites institucionais e landing pages de alta performance, prontos para SEO e para converter tráfego pago em oportunidade real.",
+    headline: "Sites que carregam. Landing pages que convertem.",
     summary:
-      "Construímos sites profissionais com performance, SEO técnico e estrutura para transformar visitas em conversas qualificadas.",
+      "Construímos sites institucionais e landing pages para campanhas — rápidos, indexáveis e desenhados pra transformar visita em conversa qualificada.",
     intent:
-      "Ideal para empresas que precisam ser encontradas no Google, explicar melhor seus serviços e captar contatos com mais clareza.",
+      "Ideal para empresas que precisam ser encontradas no Google, sustentar campanhas de tráfego pago (Google Ads, Meta Ads) ou explicar melhor um serviço específico.",
     deliverables: [
       "Site institucional rápido, responsivo e indexável",
+      "Landing pages sob medida para campanhas e ofertas específicas",
       "Arquitetura de conteúdo orientada a serviços e localização",
-      "Formulários, chamadas e rotas de contato",
+      "Formulários, integrações de CRM e rotas de contato",
       "Base técnica para SEO, AEO, GEO e leitura por IA",
     ],
     aliases: [
       "site profissional",
+      "criação de sites",
+      "landing page",
+      "criação de landing page",
+      "landing page para campanha",
       "presença digital",
       "SEO para empresas",
       "site com SEO",

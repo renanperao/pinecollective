@@ -24,12 +24,12 @@ export default function TermosPage() {
       </header>
 
       <main id="conteudo" className="mx-auto max-w-4xl px-6 py-16 md:py-24">
-        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground mb-8">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium mb-8">
           <span className="h-px w-8 bg-primary" />
           Condições gerais
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-medium tracking-[-0.02em] leading-[1.1] mb-4">
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.02em] leading-[1.1] mb-4">
           Termos de{" "}
           <span className="font-serif italic font-normal text-primary">Serviço</span>
         </h1>

@@ -23,6 +23,9 @@ export default function Page() {
     <main id="conteudo" className="relative min-h-screen bg-background text-foreground grain">
       <SiteNav />
       <Hero />
+      <ScrollFadeIn>
+        <Coletivo />
+      </ScrollFadeIn>
       <StackStrip />
       <ScrollFadeIn>
         <Proximidade />
@@ -35,9 +38,6 @@ export default function Page() {
       </ScrollFadeIn>
       <ScrollFadeIn>
         <SeoClusters />
-      </ScrollFadeIn>
-      <ScrollFadeIn>
-        <Coletivo />
       </ScrollFadeIn>
       <ScrollFadeIn>
         <DiagnosticoForm />

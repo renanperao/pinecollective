@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { PineLogo } from "@/components/pine-logo"
-import { cityPages, servicePages } from "@/lib/seo-data"
+import { servicePages } from "@/lib/seo-data"
 
 export function SiteFooter() {
   const ano = new Date().getFullYear()
@@ -102,31 +102,13 @@ export function SiteFooter() {
                 </a>
               </li>
               <li className="text-muted-foreground">
-                Tijucas, SC · atendimento para todo o Brasil
+                Nascida em Santa Catarina. Atende todo o Brasil.
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-12 border-t border-border/60 pt-8">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            Atendimento regional
-          </div>
-          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            {cityPages.map((city) => (
-              <li key={city.slug}>
-                <Link
-                  href={`/atendimento/${city.slug}`}
-                  className="inline-flex items-center min-h-[36px] text-foreground/80 hover:text-primary transition-colors"
-                >
-                  {city.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-12 sm:mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground">
+        <div className="mt-10 sm:mt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground">
           <span>© {ano} Pine Collective. Todos os direitos reservados.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link

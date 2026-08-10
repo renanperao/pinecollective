@@ -92,14 +92,14 @@ export default async function ServicePage({ params }: PageProps) {
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-primary/90 font-medium">
               <span className="h-px w-8 bg-primary" />
               {service.name}
             </div>
             <h1 className="mt-6 text-balance text-4xl md:text-6xl font-medium tracking-[-0.02em] leading-[1.05]">
               {service.headline}
             </h1>
-            <p className="mt-8 max-w-2xl text-base md:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-8 max-w-2xl text-base md:text-lg leading-relaxed text-foreground/80">
               {service.summary}
             </p>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">

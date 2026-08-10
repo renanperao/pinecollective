@@ -11,6 +11,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: absoluteUrl("/solucoes"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
+      url: absoluteUrl("/equipe"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/contato"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     ...servicePages.map((service) => ({
       url: absoluteUrl(`/servicos/${service.slug}`),
       lastModified,
