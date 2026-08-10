@@ -77,7 +77,7 @@ export function Coletivo() {
                 </span>
                 <span className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 motion-safe:animate-ping" />
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 animate-ping" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                   </span>
                   Disponível agora

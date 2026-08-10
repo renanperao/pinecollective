@@ -108,7 +108,7 @@ export function SiteNav() {
                 className="group inline-flex items-center gap-2 text-xs sm:text-sm rounded-full border border-border/80 bg-secondary/40 px-3 sm:px-4 h-11 text-foreground hover:border-primary/60 hover:bg-secondary transition-colors active:scale-[0.97] transform-gpu"
               >
                 <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 motion-safe:animate-ping" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                 </span>
                 Agendas abertas
@@ -137,7 +137,7 @@ export function SiteNav() {
           aria-label="Menu de navegação"
         >
           <div
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm motion-safe:animate-in motion-safe:fade-in motion-safe:duration-200"
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={close}
             aria-hidden="true"
           />
@@ -145,7 +145,7 @@ export function SiteNav() {
           <div
             id="mobile-menu-panel"
             ref={panelRef}
-            className="absolute inset-x-4 top-4 rounded-2xl border border-border/70 bg-background/98 backdrop-blur-md p-6 shadow-2xl motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:duration-300"
+            className="absolute inset-x-4 top-4 rounded-2xl border border-border/70 bg-background/98 backdrop-blur-md p-6 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300"
           >
             <div className="flex items-center justify-between mb-8">
               <Link
@@ -188,7 +188,7 @@ export function SiteNav() {
                 className="flex items-center justify-center gap-2.5 w-full rounded-full border border-primary/50 bg-primary/10 px-6 min-h-[48px] text-primary font-medium transition-colors hover:bg-primary/20 active:scale-[0.98] transform-gpu"
               >
                 <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 motion-safe:animate-ping" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                 </span>
                 Agendas abertas

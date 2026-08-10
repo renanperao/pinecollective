@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { motion } from "framer-motion"
 import { ReactNode } from "react"
 
 export function ScrollFadeIn({
@@ -12,12 +12,6 @@ export function ScrollFadeIn({
   className?: string
   delay?: number
 }) {
-  const reduce = useReducedMotion()
-
-  if (reduce) {
-    return <div className={className}>{children}</div>
-  }
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}

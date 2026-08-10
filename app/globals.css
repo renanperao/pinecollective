@@ -96,19 +96,13 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  html {
-    scroll-behavior: auto !important;
-  }
-}
+/*
+ * Nota: deliberadamente NÃO aplicamos o reset global de
+ * `prefers-reduced-motion` em animações/transições decorativas —
+ * elas rodam para todos os visitantes. O componente `SmoothScroll`
+ * (Lenis) continua respeitando a preferência, pois momentum scroll
+ * pode causar desconforto/enjoo.
+ */
 
 @layer utilities {
   .grain {
