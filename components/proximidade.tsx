@@ -2,13 +2,14 @@ export function Proximidade() {
   return (
     <section
       id="proximidade"
-      className="relative py-28 md:py-40 border-t border-border/60"
+      className="relative py-20 sm:py-28 md:py-40 border-t border-border/60"
+      aria-labelledby="proximidade-titulo"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-start">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-px w-8 bg-primary" />
+              <span className="h-px w-8 bg-primary" aria-hidden="true" />
               Proximidade
             </div>
             <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-sm">
@@ -18,7 +19,10 @@ export function Proximidade() {
           </div>
 
           <div className="lg:col-span-8">
-            <p className="text-balance font-sans text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-[-0.015em] font-medium">
+            <p
+              id="proximidade-titulo"
+              className="text-balance font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.15] tracking-[-0.015em] font-medium"
+            >
               Atenção dedicada. Você não fala com um robô ou um estagiário,
               você fala{" "}
               <span className="font-serif italic font-normal text-primary">
@@ -28,8 +32,8 @@ export function Proximidade() {
               próximo nível.
             </p>
 
-            <div className="mt-12 pt-10 border-t border-border/60">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div className="mt-10 sm:mt-12 pt-8 sm:pt-10 border-t border-border/60">
+              <ol className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
                 {[
                   {
                     num: "01",
@@ -47,8 +51,8 @@ export function Proximidade() {
                     desc: "Acompanhamos cada fase até a ferramenta estar em uso real.",
                   },
                 ].map((step) => (
-                  <div key={step.num} className="flex flex-col gap-3">
-                    <span className="font-mono text-xs text-primary tracking-[0.1em]">
+                  <li key={step.num} className="flex flex-col gap-3">
+                    <span className="font-mono text-xs text-primary tracking-[0.1em] tabular-nums">
                       {step.num}
                     </span>
                     <span className="text-sm font-medium text-foreground tracking-tight">
@@ -57,9 +61,9 @@ export function Proximidade() {
                     <span className="text-xs text-muted-foreground leading-relaxed">
                       {step.desc}
                     </span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           </div>
         </div>

@@ -139,6 +139,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} selection:bg-primary selection:text-primary-foreground bg-background`}
     >
       <body className="font-sans antialiased">
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <SmoothScroll>
           <script
             type="application/ld+json"

@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react"
 
 function DashboardMockup() {
   return (
-    <div className="relative">
+    <div className="relative" aria-hidden="true">
       <div
         aria-hidden="true"
         className="absolute -inset-4 rounded-3xl blur-2xl"
@@ -122,7 +122,10 @@ function DashboardMockup() {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 md:pt-44 pb-24 md:pb-32">
+    <section
+      className="relative overflow-hidden pt-32 sm:pt-36 md:pt-44 pb-20 sm:pb-24 md:pb-32"
+      aria-labelledby="hero-titulo"
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-20 mx-auto h-[520px] max-w-5xl"
@@ -132,16 +135,18 @@ export function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Text col */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-10 items-center">
           <div className="lg:col-span-6">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-px w-8 bg-primary" />
+              <span className="h-px w-8 bg-primary" aria-hidden="true" />
               Consultoria boutique de tecnologia
             </div>
 
-            <h1 className="mt-8 text-balance font-sans text-[2.5rem] leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-medium">
+            <h1
+              id="hero-titulo"
+              className="mt-6 sm:mt-8 text-balance font-sans text-[2rem] sm:text-[2.5rem] leading-[1.05] tracking-[-0.02em] md:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-medium"
+            >
               Tecnologia{" "}
               <span className="font-serif italic font-normal text-primary">
                 sob medida
@@ -149,43 +154,49 @@ export function Hero() {
               para quem já fatura, mas cansou de processos lentos e manuais.
             </h1>
 
-            <p className="mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 sm:mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-muted-foreground">
               A gente não entrega só sistema. Entra na sua operação, entende o
               problema de verdade e constrói a ferramenta exata pra sua empresa
               escalar sem caos.
             </p>
 
-            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link
                 href="#diagnostico"
-                className="group inline-flex items-center justify-between gap-6 rounded-full bg-primary pl-6 pr-2 py-2 text-primary-foreground transition-all hover:bg-primary/90"
+                className="group inline-flex items-center justify-between gap-4 sm:gap-6 rounded-full bg-primary pl-5 sm:pl-6 pr-2 h-14 sm:h-[52px] text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] transform-gpu"
               >
                 <span className="text-base font-medium tracking-tight">
                   Agendar diagnóstico pessoal
                 </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background/15 transition-transform group-hover:rotate-45">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-background/15 transition-transform duration-200 group-hover:rotate-45"
+                  aria-hidden="true"
+                >
                   <ArrowUpRight className="h-4 w-4" strokeWidth={2.2} />
                 </span>
               </Link>
 
               <Link
                 href="#solucoes"
-                className="inline-flex items-center gap-2 px-5 py-3 text-sm text-foreground/80 hover:text-foreground transition-colors"
+                className="group inline-flex items-center justify-center gap-2 px-5 min-h-[44px] text-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 Ver como resolvemos
-                <span aria-hidden className="text-primary">→</span>
+                <span
+                  aria-hidden="true"
+                  className="text-primary transition-transform duration-200 group-hover:translate-x-1"
+                >
+                  →
+                </span>
               </Link>
             </div>
           </div>
 
-          {/* Mockup col */}
           <div className="lg:col-span-6 hidden lg:block">
             <DashboardMockup />
           </div>
         </div>
 
-        {/* Stats */}
-        <dl className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-10 border-t border-border/60 pt-10">
+        <dl className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-y-6 sm:gap-y-8 gap-x-6 sm:gap-x-10 border-t border-border/60 pt-8 sm:pt-10">
           {[
             { k: "Atendimento", v: "1:1, sem intermediários" },
             { k: "Especialistas", v: "Sêniores sob demanda" },

@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Workflow, Cpu, Boxes } from "lucide-react"
 
 function DigitalizacaoPreview() {
@@ -131,16 +132,20 @@ export function Solucoes() {
   return (
     <section
       id="solucoes"
-      className="relative py-28 md:py-36 border-t border-border/60"
+      className="relative py-20 sm:py-28 md:py-36 border-t border-border/60"
+      aria-labelledby="solucoes-titulo"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-px w-8 bg-primary" />
+              <span className="h-px w-8 bg-primary" aria-hidden="true" />
               Onde resolvemos
             </div>
-            <h2 className="mt-6 text-balance text-4xl md:text-5xl font-medium tracking-[-0.015em] leading-[1.1]">
+            <h2
+              id="solucoes-titulo"
+              className="mt-6 text-balance text-3xl sm:text-4xl md:text-5xl font-medium tracking-[-0.015em] leading-[1.1]"
+            >
               Três frentes,{" "}
               <span className="font-serif italic font-normal text-primary">
                 um único compromisso:
@@ -154,16 +159,19 @@ export function Solucoes() {
           </p>
         </div>
 
-        <ul className="grid gap-5 md:grid-cols-3">
+        <ul className="grid gap-4 sm:gap-5 md:grid-cols-3">
           {items.map(({ icon: Icon, label, title, description, preview }) => (
             <li
               key={label}
-              className="group relative rounded-2xl border border-border/70 bg-card/40 p-7 md:p-8 transition-all duration-200 hover:border-primary/60 hover:bg-secondary/60 hover:shadow-[0_0_0_1px_rgba(224,95,33,0.12),0_8px_32px_-8px_rgba(224,95,33,0.15)]"
+              className="group relative rounded-2xl border border-border/70 bg-card/40 p-6 sm:p-7 md:p-8 transition-all duration-300 hover:border-primary/60 hover:bg-secondary/60 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(224,95,33,0.12),0_12px_40px_-10px_rgba(224,95,33,0.2)] transform-gpu"
             >
-              {preview}
+              <div aria-hidden="true">{preview}</div>
 
               <div className="flex items-center justify-between">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/80 bg-secondary/60 text-primary transition-colors group-hover:border-primary/60 group-hover:bg-primary/10">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/80 bg-secondary/60 text-primary transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/10 group-hover:scale-110"
+                  aria-hidden="true"
+                >
                   <Icon className="h-5 w-5" strokeWidth={1.6} />
                 </span>
                 <span className="font-mono text-xs text-muted-foreground">
@@ -178,13 +186,16 @@ export function Solucoes() {
                 {description}
               </p>
 
-              <a
+              <Link
                 href="#diagnostico"
-                className="mt-8 flex items-center gap-2 text-xs text-muted-foreground/70 group-hover:text-primary transition-colors"
+                className="mt-8 inline-flex items-center gap-2 min-h-[44px] text-xs text-muted-foreground/70 group-hover:text-primary transition-colors"
               >
-                <span className="h-px w-6 bg-current transition-all duration-200 group-hover:w-8" />
+                <span
+                  className="h-px w-6 bg-current transition-all duration-300 group-hover:w-10"
+                  aria-hidden="true"
+                />
                 Iniciar diagnóstico
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

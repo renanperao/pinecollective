@@ -5,11 +5,15 @@ import { cityPages, servicePages } from "@/lib/seo-data"
 export function SiteFooter() {
   const ano = new Date().getFullYear()
   return (
-    <footer className="relative border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-10">
+    <footer className="relative border-t border-border/60" aria-label="Rodapé do site">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+        <div className="grid gap-10 sm:gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-2.5">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2.5 rounded-md"
+              aria-label="Pine Collective, Início"
+            >
               <PineLogo className="h-6 w-6 text-primary" />
               <span className="text-base tracking-[-0.01em] font-medium">
                 Pine<span className="text-muted-foreground"> Collective</span>
@@ -35,7 +39,7 @@ export function SiteFooter() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-foreground/80 hover:text-primary transition-colors"
+                    className="inline-flex items-center min-h-[36px] text-foreground/80 hover:text-primary transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -53,7 +57,7 @@ export function SiteFooter() {
                 <li key={service.slug}>
                   <Link
                     href={`/servicos/${service.slug}`}
-                    className="text-foreground/80 hover:text-primary transition-colors"
+                    className="inline-flex items-center min-h-[36px] text-foreground/80 hover:text-primary transition-colors"
                   >
                     {service.shortName}
                   </Link>
@@ -70,7 +74,7 @@ export function SiteFooter() {
               <li>
                 <a
                   href="mailto:contato@pinecollective.dev"
-                  className="text-foreground hover:text-primary transition-colors"
+                  className="inline-flex items-center min-h-[36px] text-foreground hover:text-primary transition-colors"
                 >
                   contato@pinecollective.dev
                 </a>
@@ -80,7 +84,8 @@ export function SiteFooter() {
                   href="https://wa.me/5548992163070"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground hover:text-primary transition-colors"
+                  aria-label="Falar no WhatsApp: (48) 99216-3070 (abre em nova aba)"
+                  className="inline-flex items-center min-h-[36px] text-foreground hover:text-primary transition-colors"
                 >
                   (48) 99216-3070
                 </a>
@@ -90,7 +95,8 @@ export function SiteFooter() {
                   href="https://www.instagram.com/pinecollective.dev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground hover:text-primary transition-colors"
+                  aria-label="Instagram @pinecollective.dev (abre em nova aba)"
+                  className="inline-flex items-center min-h-[36px] text-foreground hover:text-primary transition-colors"
                 >
                   Instagram @pinecollective.dev
                 </a>
@@ -102,30 +108,37 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border/60 pt-8">
+        <div className="mt-10 sm:mt-12 border-t border-border/60 pt-8">
           <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
             Atendimento regional
           </div>
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             {cityPages.map((city) => (
-              <Link
-                key={city.slug}
-                href={`/atendimento/${city.slug}`}
-                className="text-foreground/80 hover:text-primary transition-colors"
-              >
-                {city.name}
-              </Link>
+              <li key={city.slug}>
+                <Link
+                  href={`/atendimento/${city.slug}`}
+                  className="inline-flex items-center min-h-[36px] text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {city.name}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        <div className="mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground">
+        <div className="mt-12 sm:mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground">
           <span>© {ano} Pine Collective. Todos os direitos reservados.</span>
-          <div className="flex items-center gap-6">
-            <Link href="/privacidade" className="hover:text-foreground transition-colors">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link
+              href="/privacidade"
+              className="inline-flex items-center min-h-[36px] hover:text-foreground transition-colors"
+            >
               Política de Privacidade (LGPD)
             </Link>
-            <Link href="/termos" className="hover:text-foreground transition-colors">
+            <Link
+              href="/termos"
+              className="inline-flex items-center min-h-[36px] hover:text-foreground transition-colors"
+            >
               Termos de Serviço
             </Link>
           </div>

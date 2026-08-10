@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="relative min-h-screen bg-background text-foreground grain">
+    <main id="conteudo" className="relative min-h-screen bg-background text-foreground grain">
       <SiteNav />
       <Hero />
       <StackStrip />

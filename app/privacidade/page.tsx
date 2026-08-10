@@ -23,7 +23,7 @@ export default function PrivacidadePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl px-6 py-16 md:py-24">
+      <main id="conteudo" className="mx-auto max-w-4xl px-6 py-16 md:py-24">
         <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground mb-8">
           <span className="h-px w-8 bg-primary" />
           LGPD · Lei nº 13.709/2018

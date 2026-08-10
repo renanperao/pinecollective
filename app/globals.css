@@ -35,28 +35,6 @@
   --radius: 0.75rem;
 }
 
-.dark {
-  --background: #101419;
-  --foreground: #f3efe9;
-  --card: #151a20;
-  --card-foreground: #f3efe9;
-  --popover: #151a20;
-  --popover-foreground: #f3efe9;
-  --primary: #e05f21;
-  --primary-foreground: #ffffff;
-  --secondary: #1a2027;
-  --secondary-foreground: #f3efe9;
-  --muted: #1a2027;
-  --muted-foreground: #8a8f96;
-  --accent: #e05f21;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #232a33;
-  --input: #1a2027;
-  --ring: #e05f21;
-}
-
 @theme inline {
   --font-sans: var(--font-sans-geist), 'Geist Fallback', system-ui, sans-serif;
   --font-serif: var(--font-serif-display), 'Times New Roman', serif;
@@ -96,14 +74,39 @@
   html {
     @apply bg-background;
     scroll-behavior: auto;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'ss01', 'cv11';
+    overscroll-behavior-y: none;
   }
   ::selection {
     background-color: #e05f21;
     color: #ffffff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  a,
+  button {
+    touch-action: manipulation;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto !important;
   }
 }
 
@@ -138,15 +141,48 @@
     border-bottom: 1px solid var(--border);
     padding: 0.75rem 0;
     font-size: 1rem;
+    line-height: 1.5;
+    min-height: 44px;
     color: var(--foreground);
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .form-input::placeholder {
     color: var(--muted-foreground);
     opacity: 0.7;
   }
-  .form-input:focus {
+  .form-input:focus,
+  .form-input:focus-visible {
+    outline: none;
     border-bottom-color: var(--primary);
+    box-shadow: 0 1px 0 0 var(--primary);
+  }
+  .form-input[aria-invalid='true'] {
+    border-bottom-color: var(--destructive);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
   }
 }

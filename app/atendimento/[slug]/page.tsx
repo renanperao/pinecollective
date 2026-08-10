@@ -93,7 +93,7 @@ export default async function CityPage({ params }: PageProps) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 lg:px-10 py-16 md:py-24">
+      <main id="conteudo" className="mx-auto max-w-7xl px-6 lg:px-10 py-16 md:py-24">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
