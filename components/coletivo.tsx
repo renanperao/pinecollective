@@ -55,7 +55,7 @@ export function Coletivo() {
         entries.forEach((entry) => {
           const idx = Number(entry.target.getAttribute("data-idx"))
           if (Number.isNaN(idx)) return
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
             setActiveSocio(idx)
           } else if (!entry.isIntersecting) {
             setActiveSocio((cur) => (cur === idx ? null : cur))
@@ -63,8 +63,8 @@ export function Coletivo() {
         })
       },
       {
-        threshold: [0.55],
-        rootMargin: "-20% 0px -20% 0px",
+        threshold: [0.25],
+        rootMargin: "-5% 0px -25% 0px",
       }
     )
 
