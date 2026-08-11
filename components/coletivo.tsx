@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -39,6 +42,39 @@ const rede = [
 ]
 
 export function Coletivo() {
+  const socioRefs = useRef<(HTMLLIElement | null)[]>([])
+  const [activeSocio, setActiveSocio] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const canHover = window.matchMedia("(hover: hover)").matches
+    if (canHover) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = Number(entry.target.getAttribute("data-idx"))
+          if (Number.isNaN(idx)) return
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+            setActiveSocio(idx)
+          } else if (!entry.isIntersecting) {
+            setActiveSocio((cur) => (cur === idx ? null : cur))
+          }
+        })
+      },
+      {
+        threshold: [0.55],
+        rootMargin: "-20% 0px -20% 0px",
+      }
+    )
+
+    socioRefs.current.forEach((el) => {
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
       id="coletivo"
@@ -95,12 +131,17 @@ export function Coletivo() {
             </Link>
           </div>
 
-          <div className="lg:col-span-7 flex flex-col gap-8">
+          <div className="lg:col-span-7 flex flex-col gap-8 min-w-0">
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {socios.map((s) => (
+              {socios.map((s, idx) => (
                 <li
                   key={s.nome}
-                  className="group relative rounded-2xl border border-border/70 bg-card/40 overflow-hidden transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(224,95,33,0.12),0_12px_40px_-10px_rgba(224,95,33,0.2)] transform-gpu"
+                  ref={(el) => {
+                    socioRefs.current[idx] = el
+                  }}
+                  data-idx={idx}
+                  data-active={activeSocio === idx}
+                  className="group relative rounded-2xl border border-border/70 bg-card/40 overflow-hidden transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(224,95,33,0.12),0_12px_40px_-10px_rgba(224,95,33,0.2)] data-[active=true]:border-primary/50 data-[active=true]:shadow-[0_0_0_1px_rgba(224,95,33,0.12),0_12px_40px_-10px_rgba(224,95,33,0.2)] transform-gpu"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-secondary/40">
                     <Image
@@ -108,7 +149,7 @@ export function Coletivo() {
                       alt={s.nome}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
-                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-[1.03] group-data-[active=true]:grayscale-0 group-data-[active=true]:scale-[1.03]"
                     />
                     <div
                       aria-hidden="true"
@@ -127,7 +168,7 @@ export function Coletivo() {
               ))}
             </ul>
 
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center justify-between mb-4">
                 <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.16em] text-muted-foreground">
                   Coletivo · Rede sob demanda

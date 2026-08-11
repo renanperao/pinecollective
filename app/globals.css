@@ -80,6 +80,7 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'ss01', 'cv11';
     overscroll-behavior-y: none;
+    overflow-x: hidden;
   }
   ::selection {
     background-color: #e05f21;
@@ -153,6 +154,33 @@
   }
   .form-input[aria-invalid='true'] {
     border-bottom-color: var(--destructive);
+  }
+
+  .quiz-input {
+    width: 100%;
+    background-color: color-mix(in oklab, var(--secondary) 30%, transparent);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 48px;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .quiz-input::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.7;
+  }
+  .quiz-input:focus,
+  .quiz-input:focus-visible {
+    border-color: var(--primary);
+    background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 20%, transparent);
+  }
+  .quiz-input[aria-invalid='true'] {
+    border-color: var(--destructive);
   }
 
   .marquee-track {

@@ -71,12 +71,12 @@ function AutomacaoPreview() {
 
 function CustomizadaPreview() {
   return (
-    <div className="rounded-xl border border-border/50 bg-background/60 p-3 mb-6">
+    <div className="rounded-xl border border-border/50 bg-background/60 p-3 mb-6 min-w-0 overflow-hidden">
       <div className="text-[9px] font-mono text-muted-foreground/60 mb-2 uppercase tracking-widest">
         Módulo do nicho
       </div>
 
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-5 gap-2 min-w-0">
         <div className="col-span-2 rounded-md border border-border/50 bg-secondary/30 p-2">
           <div className="text-[7px] uppercase tracking-widest text-muted-foreground/60 mb-1.5">
             Agenda
