@@ -139,7 +139,7 @@ export const servicePages = [
       "Criamos sites institucionais e landing pages de alta performance, prontos para SEO e para converter tráfego pago em oportunidade real.",
     headline: "Sites que carregam. Landing pages que convertem.",
     summary:
-      "Construímos sites institucionais e landing pages para campanhas — rápidos, indexáveis e desenhados pra transformar visita em conversa qualificada.",
+      "Construímos sites institucionais e landing pages para campanhas: rápidos, indexáveis e desenhados pra transformar visita em conversa qualificada.",
     intent:
       "Ideal para empresas que precisam ser encontradas no Google, sustentar campanhas de tráfego pago (Google Ads, Meta Ads) ou explicar melhor um serviço específico.",
     deliverables: [
