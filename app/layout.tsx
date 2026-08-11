@@ -24,7 +24,10 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: "Pine Collective | Software personalizado, CRM e sistemas de gestão",
+  title: {
+    default: "Pine Collective",
+    template: "%s | Pine Collective",
+  },
   description:
     "Software personalizado, sistema de gestão, CRM personalizado e automação para empresas que querem sair da planilha e escalar com controle.",
   keywords: [

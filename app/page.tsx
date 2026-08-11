@@ -12,7 +12,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { ScrollFadeIn } from "@/components/scroll-fade-in"
 
 export const metadata: Metadata = {
-  title: "Software personalizado, CRM e sistemas de gestão | Pine Collective",
+  title: "Pine Collective",
   description:
     "A Pine Collective cria software personalizado, sistema de gestão, CRM personalizado e automação para empresas em Tijucas, Florianópolis, São José, Palhoça, Itapema e Balneário Camboriú.",
   alternates: { canonical: "/" },
