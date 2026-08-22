@@ -14,6 +14,18 @@ const nextConfig = {
       },
     ]
   },
+  // Prévias de cliente vivem como export estático em public/previa/<cliente>/.
+  // Estas duas regras valem para qualquer cliente, sem precisar editar nada
+  // quando entrar ou sair um projeto.
+  async rewrites() {
+    return [
+      { source: "/previa/:cliente", destination: "/previa/:cliente/index.html" },
+      {
+        source: "/previa/:cliente/:page",
+        destination: "/previa/:cliente/:page.html",
+      },
+    ]
+  },
 }
 
 export default nextConfig

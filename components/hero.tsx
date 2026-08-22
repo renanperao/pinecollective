@@ -148,8 +148,8 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 sm:mt-8 max-w-lg text-pretty text-base md:text-lg leading-relaxed text-foreground/90">
-              Você não precisa de mais um sistema. Precisa do seu, feito por
-              quem entende como sua operação respira e assina o próprio código.
+              Um sistema com o formato exato da sua operação, feito por quem
+              entende como ela respira e assina o próprio código.
             </p>
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
