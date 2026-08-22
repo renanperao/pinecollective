@@ -586,7 +586,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                             setPhoneStage("idle")
                             advanceAfter(120)
                           }}
-                          className={`rounded-full border border-border/80 text-foreground/80 hover:text-foreground hover:border-primary/50 transition-colors ${
+                          className={`rounded-full bg-destructive font-semibold text-white hover:bg-destructive/90 transition-colors active:scale-[0.97] transform-gpu ${
                             compact ? "px-3.5 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
                           }`}
                         >
