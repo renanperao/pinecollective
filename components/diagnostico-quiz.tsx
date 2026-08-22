@@ -1,7 +1,7 @@
 "use client"
 
 import { useForm } from "react-hook-form"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import {
   ArrowLeft,
@@ -27,7 +27,8 @@ const gargalos = [
 
 const orcamentos = [
   "Até R$ 1k",
-  "R$ 1k a R$ 15k",
+  "R$ 1k a R$ 5k",
+  "R$ 5k a R$ 15k",
   "R$ 15k a R$ 50k",
   "R$ 50k a R$ 120k",
   "Acima de R$ 120k",
@@ -67,15 +68,20 @@ const stepSubtitles: Record<StepKey, string> = {
   gargalo: "Escolha o que mais te descreve. Sem certeza? Marca 'Outro'.",
   orcamento: "Uma faixa aproximada. Não é compromisso.",
   sobre: "Só o essencial.",
-  contato: "WhatsApp é o principal canal. E-mail é opcional.",
-  detalhe: "Ajuda a gente a chegar mais preparado. Totalmente opcional.",
+  contato: "É só digitar. A gente confirma com você.",
+  detalhe: "",
 }
+
+type PhoneStage = "idle" | "confirm-number" | "confirm-email" | "revealed-email"
 
 export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   const [stepIdx, setStepIdx] = useState(0)
   const [enviado, setEnviado] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const [phoneStage, setPhoneStage] = useState<PhoneStage>("idle")
+  const prevPhoneDigitsLen = useRef(0)
+  const emailInputRef = useRef<HTMLInputElement | null>(null)
   const reduce = useReducedMotion()
 
   const {
@@ -90,11 +96,44 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   const currentStep = stepOrder[stepIdx]
   const progress = ((stepIdx + 1) / stepOrder.length) * 100
   const isLastStep = stepIdx === stepOrder.length - 1
+  const isAutoAdvanceStep = currentStep === "gargalo" || currentStep === "orcamento"
 
   const gargaloCategoria = watch("gargaloCategoria")
   const orcamento = watch("orcamento")
   const gargaloDetalheValue = watch("gargaloDetalhe")
   const hasDetalhe = !!gargaloDetalheValue?.trim()
+  const telefoneValue = watch("telefone")
+  const telefoneDigits = (telefoneValue ?? "").replace(/\D/g, "")
+
+  useEffect(() => {
+    const len = telefoneDigits.length
+    const complete = len === 10 || len === 11
+    if (complete && prevPhoneDigitsLen.current !== len) {
+      setPhoneStage("confirm-number")
+    } else if (!complete) {
+      setPhoneStage("idle")
+    }
+    prevPhoneDigitsLen.current = len
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [telefoneDigits])
+
+  useEffect(() => {
+    if (phoneStage === "revealed-email") {
+      emailInputRef.current?.focus()
+    }
+  }, [phoneStage])
+
+  function advanceAfter(delayMs = 300) {
+    setTimeout(() => {
+      setDirection(1)
+      setStepIdx((s) => Math.min(stepOrder.length - 1, s + 1))
+    }, delayMs)
+  }
+
+  function selectSingleChoice(field: "gargaloCategoria" | "orcamento", value: string) {
+    setValue(field, value, { shouldValidate: true })
+    advanceAfter(280)
+  }
 
   async function goNext() {
     let fields: (keyof FormValues)[] = []
@@ -116,6 +155,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
 
   function goPrev() {
     setDirection(-1)
+    setPhoneStage("idle")
     setStepIdx((s) => Math.max(0, s - 1))
   }
 
@@ -160,6 +200,11 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
     minLength: { value: 14, message: "Número inválido: use (00) 00000-0000" },
   })
 
+  const { ref: emailRegisterRef, ...emailRest } = register("email", {
+    validate: (value) =>
+      !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "E-mail inválido",
+  })
+
   const stepVariants = reduce
     ? {
         enter: { opacity: 1, x: 0 },
@@ -173,6 +218,11 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
       }
 
   const inputClass = compact ? "quiz-input-sm" : "quiz-input"
+
+  const hideSubmitButton =
+    isAutoAdvanceStep ||
+    (currentStep === "contato" &&
+      (phoneStage === "confirm-number" || phoneStage === "confirm-email"))
 
   if (enviado) {
     return (
@@ -272,10 +322,21 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
               >
                 {stepTitles[currentStep]}
               </h3>
-              {!compact && (
+              {!compact && stepSubtitles[currentStep] && (
                 <p className="mt-2 text-sm text-foreground/70">
                   {stepSubtitles[currentStep]}
                 </p>
+              )}
+              {currentStep === "detalhe" && (
+                <span
+                  className={`inline-flex items-center rounded-full border border-primary bg-primary/15 font-bold text-primary ${
+                    compact
+                      ? "mt-2.5 px-3 py-1 text-[11px]"
+                      : "mt-4 px-4 py-1.5 text-sm"
+                  }`}
+                >
+                  100% opcional — pode pular
+                </span>
               )}
             </div>
 
@@ -298,11 +359,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         role="radio"
                         aria-checked={active}
                         key={value}
-                        onClick={() =>
-                          setValue("gargaloCategoria", value, {
-                            shouldValidate: true,
-                          })
-                        }
+                        onClick={() => selectSingleChoice("gargaloCategoria", value)}
                         className={`group flex items-center text-left transition-all duration-200 active:scale-[0.98] transform-gpu ${
                           compact
                             ? "gap-2 rounded-lg border px-2.5 py-2 text-[11px] leading-tight"
@@ -373,9 +430,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         role="radio"
                         aria-checked={active}
                         key={opt}
-                        onClick={() =>
-                          setValue("orcamento", opt, { shouldValidate: true })
-                        }
+                        onClick={() => selectSingleChoice("orcamento", opt)}
                         className={`rounded-full border transition-all duration-200 active:scale-[0.97] transform-gpu ${
                           compact
                             ? "px-3 min-h-[34px] text-xs"
@@ -433,7 +488,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             )}
 
             {currentStep === "contato" && (
-              <div className={compact ? "flex flex-col gap-3" : "flex flex-col gap-5"}>
+              <div className={compact ? "flex flex-col gap-2.5" : "flex flex-col gap-4"}>
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="telefone"
@@ -472,39 +527,123 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                   )}
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="email"
-                    className={`uppercase tracking-[0.14em] text-muted-foreground ${
-                      compact ? "text-[9px]" : "text-[10px] sm:text-xs"
-                    }`}
-                  >
-                    E-mail{" "}
-                    <span className="normal-case text-muted-foreground/60">
-                      (opcional)
-                    </span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    placeholder="voce@empresa.com.br"
-                    className={inputClass}
-                    aria-invalid={!!errors.email}
-                    {...register("email", {
-                      validate: (value) =>
-                        !value ||
-                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ||
-                        "E-mail inválido",
-                    })}
-                  />
-                  {errors.email && (
-                    <span className="text-xs text-destructive" role="alert">
-                      {errors.email.message}
-                    </span>
+                <AnimatePresence mode="wait" initial={false}>
+                  {phoneStage === "confirm-number" && (
+                    <motion.div
+                      key="confirm-number"
+                      initial={{ opacity: 0, y: -6, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -6, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className={`overflow-hidden rounded-xl border border-primary/40 bg-secondary/40 ${
+                        compact ? "p-2.5" : "p-3.5"
+                      }`}
+                    >
+                      <p className={compact ? "text-xs" : "text-sm"}>
+                        Esse número está correto?
+                      </p>
+                      <div className="mt-2.5 flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setPhoneStage("idle")}
+                          className={`rounded-full border border-border/80 text-foreground/70 hover:text-foreground hover:border-border transition-colors ${
+                            compact ? "px-3 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                          }`}
+                        >
+                          Não
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPhoneStage("confirm-email")}
+                          className={`rounded-full bg-emerald-600 font-semibold text-white hover:bg-emerald-500 transition-colors active:scale-[0.97] transform-gpu ${
+                            compact ? "px-4 min-h-[32px] text-xs" : "px-5 min-h-[38px] text-sm"
+                          }`}
+                        >
+                          Sim
+                        </button>
+                      </div>
+                    </motion.div>
                   )}
-                </div>
+
+                  {phoneStage === "confirm-email" && (
+                    <motion.div
+                      key="confirm-email"
+                      initial={{ opacity: 0, y: -6, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -6, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className={`overflow-hidden rounded-xl border border-border/70 bg-secondary/40 ${
+                        compact ? "p-2.5" : "p-3.5"
+                      }`}
+                    >
+                      <p className={compact ? "text-xs" : "text-sm"}>
+                        Deseja preencher e-mail?
+                      </p>
+                      <div className="mt-2.5 flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPhoneStage("idle")
+                            advanceAfter(120)
+                          }}
+                          className={`rounded-full border border-border/80 text-foreground/80 hover:text-foreground hover:border-primary/50 transition-colors ${
+                            compact ? "px-3.5 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                          }`}
+                        >
+                          Não
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPhoneStage("revealed-email")}
+                          className={`rounded-full border border-border/80 text-foreground/80 hover:text-foreground hover:border-primary/50 transition-colors ${
+                            compact ? "px-3.5 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                          }`}
+                        >
+                          Sim
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {phoneStage === "revealed-email" && (
+                    <motion.div
+                      key="email-field"
+                      initial={{ opacity: 0, y: -6, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -6, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden flex flex-col gap-2"
+                    >
+                      <label
+                        htmlFor="email"
+                        className={`uppercase tracking-[0.14em] text-muted-foreground ${
+                          compact ? "text-[9px]" : "text-[10px] sm:text-xs"
+                        }`}
+                      >
+                        E-mail
+                      </label>
+                      <input
+                        id="email"
+                        ref={(el) => {
+                          emailInputRef.current = el
+                          emailRegisterRef(el)
+                        }}
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        placeholder="voce@empresa.com.br"
+                        className={inputClass}
+                        aria-invalid={!!errors.email}
+                        {...emailRest}
+                      />
+                      {errors.email && (
+                        <span className="text-xs text-destructive" role="alert">
+                          {errors.email.message}
+                        </span>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )}
 
@@ -517,7 +656,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                   id="gargaloDetalhe"
                   rows={compact ? 3 : 5}
                   placeholder="Quanto mais específico, melhor. Ex: 'planilha de pedidos vira caos quando passa de 100 linhas'"
-                  className={`w-full rounded-xl border border-border/80 bg-secondary/30 leading-relaxed text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-primary focus:bg-secondary/50 resize-none ${
+                  className={`w-full rounded-xl border border-dashed border-border/70 bg-secondary/20 leading-relaxed text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:bg-secondary/40 resize-none ${
                     compact ? "px-3 py-2.5 text-sm" : "px-4 py-3 text-base"
                   }`}
                   {...register("gargaloDetalhe")}
@@ -545,31 +684,33 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
           Voltar
         </button>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className={`group inline-flex items-center justify-between rounded-full bg-primary text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transform-gpu ${
-            compact ? "gap-3 pl-4 pr-1.5 h-10" : "gap-4 sm:gap-6 pl-5 sm:pl-6 pr-2 h-12 sm:h-[52px]"
-          }`}
-        >
-          <span className={`font-medium tracking-tight ${compact ? "text-xs" : "text-sm"}`}>
-            {isSubmitting
-              ? "Enviando..."
-              : isLastStep
-              ? hasDetalhe
-                ? "Enviar diagnóstico"
-                : "Pular"
-              : "Continuar"}
-          </span>
-          <span
-            className={`flex items-center justify-center rounded-full bg-background/15 transition-transform duration-200 group-hover:rotate-45 ${
-              compact ? "h-7 w-7" : "h-9 w-9"
+        {!hideSubmitButton && (
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`group inline-flex items-center justify-between rounded-full bg-primary text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transform-gpu ${
+              compact ? "gap-3 pl-4 pr-1.5 h-10" : "gap-4 sm:gap-6 pl-5 sm:pl-6 pr-2 h-12 sm:h-[52px]"
             }`}
-            aria-hidden="true"
           >
-            <ArrowRight className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} strokeWidth={2.2} />
-          </span>
-        </button>
+            <span className={`font-medium tracking-tight ${compact ? "text-xs" : "text-sm"}`}>
+              {isSubmitting
+                ? "Enviando..."
+                : isLastStep
+                ? hasDetalhe
+                  ? "Enviar diagnóstico"
+                  : "Pular"
+                : "Continuar"}
+            </span>
+            <span
+              className={`flex items-center justify-center rounded-full bg-background/15 transition-transform duration-200 group-hover:rotate-45 ${
+                compact ? "h-7 w-7" : "h-9 w-9"
+              }`}
+              aria-hidden="true"
+            >
+              <ArrowRight className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} strokeWidth={2.2} />
+            </span>
+          </button>
+        )}
       </div>
     </form>
   )
