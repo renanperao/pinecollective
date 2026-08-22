@@ -7,14 +7,17 @@ const endpoint =
 const requiredFields = [
   "nome",
   "empresa",
-  "email",
   "telefone",
   "gargalo",
   "orcamento",
 ] as const
 
-type FieldName = (typeof requiredFields)[number]
-type DiagnosticoPayload = Record<FieldName, string>
+const optionalFields = ["email"] as const
+
+type RequiredField = (typeof requiredFields)[number]
+type OptionalField = (typeof optionalFields)[number]
+type DiagnosticoPayload = Record<RequiredField, string> &
+  Partial<Record<OptionalField, string>>
 
 export async function POST(request: Request) {
   let payload: Partial<DiagnosticoPayload>
@@ -54,6 +57,11 @@ export async function POST(request: Request) {
 
   requiredFields.forEach((field) => {
     formData.append(field, data[field].trim())
+  })
+
+  optionalFields.forEach((field) => {
+    const value = data[field]?.trim()
+    if (value) formData.append(field, value)
   })
 
   try {

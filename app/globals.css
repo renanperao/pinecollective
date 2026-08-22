@@ -183,6 +183,33 @@
     border-color: var(--destructive);
   }
 
+  .quiz-input-sm {
+    width: 100%;
+    background-color: color-mix(in oklab, var(--secondary) 30%, transparent);
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    min-height: 38px;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .quiz-input-sm::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.7;
+  }
+  .quiz-input-sm:focus,
+  .quiz-input-sm:focus-visible {
+    border-color: var(--primary);
+    background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 20%, transparent);
+  }
+  .quiz-input-sm[aria-invalid='true'] {
+    border-color: var(--destructive);
+  }
+
   .marquee-track {
     animation: marquee 40s linear infinite;
   }
