@@ -16,7 +16,7 @@ const requiredFields = [
   "orcamento",
 ] as const
 
-const optionalFields = ["email"] as const
+const optionalFields = ["email", "campanha"] as const
 
 type RequiredField = (typeof requiredFields)[number]
 type OptionalField = (typeof optionalFields)[number]
@@ -30,7 +30,8 @@ async function enviarParaWeb3Forms(data: DiagnosticoPayload): Promise<boolean> {
 
   const formData = new FormData()
   formData.append("access_key", accessKey)
-  formData.append("subject", `Novo Diagnóstico: ${data.empresa.trim()}`)
+  const rotulo = data.campanha?.trim() ? ` (${data.campanha.trim()})` : ""
+  formData.append("subject", `Novo Diagnóstico${rotulo}: ${data.empresa.trim()}`)
   formData.append("from_name", "Pine Collective Website")
 
   requiredFields.forEach((field) => {
@@ -53,7 +54,7 @@ async function enviarParaWeb3Forms(data: DiagnosticoPayload): Promise<boolean> {
 /**
  * Fonte da verdade dos leads: grava direto no CRM próprio da Pine, sem
  * depender de um serviço de fora pra "captar" quem preencheu o formulário.
- * Autenticado por segredo compartilhado — ver leeds-pine-collective/app/api/inbound.
+ * Autenticado por segredo compartilhado, ver leeds-pine-collective/app/api/inbound.
  */
 async function enviarParaCrm(data: DiagnosticoPayload): Promise<boolean> {
   const secret = process.env.CRM_INBOUND_SECRET

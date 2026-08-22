@@ -50,7 +50,7 @@ export default async function CasePage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "@id": `${absoluteUrl(path)}#case`,
-    "name": `${c.cliente} — ${c.tagline}`,
+    "name": `${c.cliente}: ${c.tagline}`,
     "description": c.resumo,
     "url": absoluteUrl(path),
     "image": absoluteUrl(c.cover),

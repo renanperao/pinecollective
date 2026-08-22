@@ -1,5 +1,13 @@
 "use client"
 
+// Formulário exclusivo da campanha de tráfego pago pra site/landing page
+// (advogados, corretores, clínicas de estética, arquitetura e engenharia).
+// É um fork deliberado de components/diagnostico-quiz.tsx, não uma variante
+// parametrizada dele: as duas primeiras perguntas mudam completamente (tipo
+// de projeto + ramo, em vez de gargalo), e a ideia é que cada campanha futura
+// possa ter seu próprio modelo de perguntas sem arriscar o formulário
+// principal do site. Ver memória do projeto sobre o padrão de campanhas.
+
 import { useForm } from "react-hook-form"
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
@@ -7,21 +15,34 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  Workflow,
-  Cpu,
-  Users,
   Globe,
+  Target,
+  Scale,
+  Home,
   Sparkles,
+  Building2,
   MoreHorizontal,
 } from "lucide-react"
 import { toast } from "sonner"
 
-const gargalos = [
-  { value: "Planilha caótica ou dados espalhados", icon: Workflow },
-  { value: "Processos manuais e repetitivos", icon: Cpu },
-  { value: "Sem controle de vendas / CRM", icon: Users },
-  { value: "Site fraco ou sem conversão", icon: Globe },
-  { value: "Falta automação entre sistemas", icon: Sparkles },
+const tiposProjeto = [
+  {
+    value: "Site institucional",
+    descricao: "Presença completa: quem você é, o que faz, como te encontrar.",
+    icon: Globe,
+  },
+  {
+    value: "Landing page",
+    descricao: "Uma página focada em vender um serviço ou captar contato.",
+    icon: Target,
+  },
+]
+
+const ramos = [
+  { value: "Advogados", icon: Scale },
+  { value: "Corretores de imóveis", icon: Home },
+  { value: "Clínica de estética", icon: Sparkles },
+  { value: "Arquitetura e engenharia", icon: Building2 },
   { value: "Outro", icon: MoreHorizontal },
 ]
 
@@ -36,13 +57,15 @@ const orcamentos = [
 ]
 
 type FormValues = {
-  gargaloCategoria: string
-  gargaloDetalhe: string
+  tipoProjeto: string
+  ramoCategoria: string
+  ramoOutro: string
   orcamento: string
   nome: string
   empresa: string
   email: string
   telefone: string
+  detalhe: string
 }
 
 function maskPhone(value: string) {
@@ -52,12 +75,13 @@ function maskPhone(value: string) {
   return d.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").replace(/-$/, "")
 }
 
-type StepKey = "gargalo" | "orcamento" | "sobre" | "contato" | "detalhe"
+type StepKey = "tipo" | "ramo" | "orcamento" | "sobre" | "contato" | "detalhe"
 
-const stepOrder: StepKey[] = ["gargalo", "orcamento", "sobre", "contato", "detalhe"]
+const stepOrder: StepKey[] = ["tipo", "ramo", "orcamento", "sobre", "contato", "detalhe"]
 
 const stepTitles: Record<StepKey, string> = {
-  gargalo: "Onde tá o maior gargalo hoje?",
+  tipo: "O que você está buscando?",
+  ramo: "Qual é o seu ramo?",
   orcamento: "Qual o orçamento em mente?",
   sobre: "Como podemos te chamar?",
   contato: "Por onde a gente te procura?",
@@ -65,7 +89,8 @@ const stepTitles: Record<StepKey, string> = {
 }
 
 const stepSubtitles: Record<StepKey, string> = {
-  gargalo: "Escolha o que mais te descreve. Sem certeza? Marca 'Outro'.",
+  tipo: "Escolha o que faz mais sentido pro seu momento.",
+  ramo: "Isso ajuda a gente a te mostrar algo relevante.",
   orcamento: "Uma faixa aproximada. Não é compromisso.",
   sobre: "Só o essencial.",
   contato: "É só digitar. A gente confirma com você.",
@@ -74,7 +99,7 @@ const stepSubtitles: Record<StepKey, string> = {
 
 type PhoneStage = "idle" | "confirm-number" | "confirm-email" | "revealed-email"
 
-export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
+export function CampanhaSiteQuiz({ compact = false }: { compact?: boolean }) {
   const [stepIdx, setStepIdx] = useState(0)
   const [enviado, setEnviado] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -82,6 +107,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   const [phoneStage, setPhoneStage] = useState<PhoneStage>("idle")
   const prevPhoneDigitsLen = useRef(0)
   const emailInputRef = useRef<HTMLInputElement | null>(null)
+  const ramoOutroInputRef = useRef<HTMLInputElement | null>(null)
   const reduce = useReducedMotion()
 
   const {
@@ -96,14 +122,19 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   const currentStep = stepOrder[stepIdx]
   const progress = ((stepIdx + 1) / stepOrder.length) * 100
   const isLastStep = stepIdx === stepOrder.length - 1
-  const isAutoAdvanceStep = currentStep === "gargalo" || currentStep === "orcamento"
 
-  const gargaloCategoria = watch("gargaloCategoria")
+  const tipoProjeto = watch("tipoProjeto")
+  const ramoCategoria = watch("ramoCategoria")
   const orcamento = watch("orcamento")
-  const gargaloDetalheValue = watch("gargaloDetalhe")
-  const hasDetalhe = !!gargaloDetalheValue?.trim()
+  const detalheValue = watch("detalhe")
+  const hasDetalhe = !!detalheValue?.trim()
   const telefoneValue = watch("telefone")
   const telefoneDigits = (telefoneValue ?? "").replace(/\D/g, "")
+
+  const isAutoAdvanceStep =
+    currentStep === "tipo" ||
+    currentStep === "orcamento" ||
+    (currentStep === "ramo" && ramoCategoria !== "Outro")
 
   useEffect(() => {
     const len = telefoneDigits.length
@@ -123,6 +154,12 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
     }
   }, [phoneStage])
 
+  useEffect(() => {
+    if (ramoCategoria === "Outro") {
+      ramoOutroInputRef.current?.focus()
+    }
+  }, [ramoCategoria])
+
   function advanceAfter(delayMs = 300) {
     setTimeout(() => {
       setDirection(1)
@@ -130,14 +167,18 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
     }, delayMs)
   }
 
-  function selectSingleChoice(field: "gargaloCategoria" | "orcamento", value: string) {
+  function selectSingleChoice(
+    field: "tipoProjeto" | "ramoCategoria" | "orcamento",
+    value: string
+  ) {
     setValue(field, value, { shouldValidate: true })
     advanceAfter(280)
   }
 
   async function goNext() {
     let fields: (keyof FormValues)[] = []
-    if (currentStep === "gargalo") fields = ["gargaloCategoria"]
+    if (currentStep === "tipo") fields = ["tipoProjeto"]
+    if (currentStep === "ramo") fields = ["ramoCategoria", "ramoOutro"]
     if (currentStep === "orcamento") fields = ["orcamento"]
     if (currentStep === "sobre") fields = ["nome", "empresa"]
     if (currentStep === "contato") fields = ["telefone", "email"]
@@ -162,15 +203,19 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true)
 
+    const ramoFinal =
+      data.ramoCategoria === "Outro" ? data.ramoOutro || "Outro" : data.ramoCategoria
+
     const payload = {
       nome: data.nome,
       empresa: data.empresa,
       email: data.email,
       telefone: data.telefone,
-      gargalo: `[${data.gargaloCategoria}]${
-        data.gargaloDetalhe ? ` ${data.gargaloDetalhe}` : ""
+      gargalo: `[${data.tipoProjeto}, ${ramoFinal}]${
+        data.detalhe ? ` ${data.detalhe}` : ""
       }`,
       orcamento: data.orcamento,
+      campanha: "campanha-site",
     }
 
     try {
@@ -205,6 +250,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
       !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "E-mail inválido",
   })
 
+  const { ref: ramoOutroRegisterRef, ...ramoOutroRest } = register("ramoOutro", {
+    required: "Conta rapidamente qual o seu ramo",
+  })
+
   const stepVariants = reduce
     ? {
         enter: { opacity: 1, x: 0 },
@@ -234,9 +283,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
         aria-live="polite"
       >
         <span
-          className={`flex items-center justify-center rounded-full bg-primary/15 text-primary ${
-            compact ? "h-12 w-12" : "h-12 w-12"
-          }`}
+          className="flex items-center justify-center rounded-full bg-primary/15 text-primary h-12 w-12"
           aria-hidden="true"
         >
           <Check className={compact ? "h-5 w-5" : "h-6 w-6"} strokeWidth={2} />
@@ -344,27 +391,119 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
               )}
             </div>
 
-            {currentStep === "gargalo" && (
+            {currentStep === "tipo" && (
               <div>
                 <div
                   role="radiogroup"
-                  aria-label="Categoria do gargalo"
-                  className={
-                    compact
-                      ? "grid grid-cols-2 gap-2"
-                      : "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"
-                  }
+                  aria-label="Tipo de projeto"
+                  className={compact ? "flex flex-col gap-2.5" : "flex flex-col gap-3"}
                 >
-                  {gargalos.map(({ value, icon: Icon }) => {
-                    const active = gargaloCategoria === value
+                  {tiposProjeto.map(({ value, descricao, icon: Icon }) => {
+                    const active = tipoProjeto === value
                     return (
                       <button
                         type="button"
                         role="radio"
                         aria-checked={active}
                         key={value}
-                        onClick={() => selectSingleChoice("gargaloCategoria", value)}
+                        onClick={() => selectSingleChoice("tipoProjeto", value)}
                         className={`group flex items-center text-left transition-all duration-200 active:scale-[0.98] transform-gpu ${
+                          compact
+                            ? "gap-3 rounded-xl border px-4 py-3.5"
+                            : "gap-4 rounded-xl border px-5 py-4"
+                        } ${
+                          active
+                            ? "border-primary bg-primary/10 shadow-sm shadow-primary/20"
+                            : "border-border/80 bg-secondary/30 hover:border-primary/50 hover:bg-secondary/60"
+                        }`}
+                      >
+                        <span
+                          className={`flex shrink-0 items-center justify-center rounded-lg border transition-colors ${
+                            compact ? "h-9 w-9" : "h-10 w-10"
+                          } ${
+                            active
+                              ? "border-primary/60 bg-primary/15 text-primary"
+                              : "border-border/80 bg-secondary/60 text-primary/80"
+                          }`}
+                          aria-hidden="true"
+                        >
+                          <Icon
+                            className={compact ? "h-4 w-4" : "h-5 w-5"}
+                            strokeWidth={1.8}
+                          />
+                        </span>
+                        <span className="flex-1 min-w-0">
+                          <span
+                            className={`block font-medium text-foreground ${
+                              compact ? "text-sm" : "text-base"
+                            }`}
+                          >
+                            {value}
+                          </span>
+                          <span
+                            className={`block text-muted-foreground ${
+                              compact ? "text-xs mt-0.5" : "text-sm mt-0.5"
+                            }`}
+                          >
+                            {descricao}
+                          </span>
+                        </span>
+                        {active && (
+                          <Check
+                            className={`shrink-0 text-primary ${
+                              compact ? "h-4 w-4" : "h-5 w-5"
+                            }`}
+                            strokeWidth={2.4}
+                            aria-hidden="true"
+                          />
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+                <input
+                  type="hidden"
+                  {...register("tipoProjeto", {
+                    required: "Escolha uma opção pra continuar",
+                  })}
+                />
+                {errors.tipoProjeto && (
+                  <p className="mt-2 text-xs text-destructive" role="alert">
+                    {errors.tipoProjeto.message}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {currentStep === "ramo" && (
+              <div>
+                <div
+                  role="radiogroup"
+                  aria-label="Ramo de atuação"
+                  className={
+                    compact
+                      ? "grid grid-cols-2 gap-2"
+                      : "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"
+                  }
+                >
+                  {ramos.map(({ value, icon: Icon }) => {
+                    const active = ramoCategoria === value
+                    return (
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        key={value}
+                        onClick={() => {
+                          if (value === "Outro") {
+                            setValue("ramoCategoria", value, { shouldValidate: true })
+                          } else {
+                            selectSingleChoice("ramoCategoria", value)
+                          }
+                        }}
+                        className={`group flex items-center text-left transition-all duration-200 active:scale-[0.98] transform-gpu ${
+                          value === "Outro" ? "col-span-2" : ""
+                        } ${
                           compact
                             ? "gap-2.5 rounded-xl border px-3 py-3 text-xs leading-snug"
                             : "gap-3 rounded-xl border px-4 py-3.5 text-sm"
@@ -405,15 +544,54 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                 </div>
                 <input
                   type="hidden"
-                  {...register("gargaloCategoria", {
-                    required: "Escolha uma categoria pra continuar",
+                  {...register("ramoCategoria", {
+                    required: "Escolha uma opção pra continuar",
                   })}
                 />
-                {errors.gargaloCategoria && (
+                {errors.ramoCategoria && (
                   <p className="mt-2 text-xs text-destructive" role="alert">
-                    {errors.gargaloCategoria.message}
+                    {errors.ramoCategoria.message}
                   </p>
                 )}
+
+                <AnimatePresence mode="wait" initial={false}>
+                  {ramoCategoria === "Outro" && (
+                    <motion.div
+                      key="ramo-outro"
+                      initial={{ opacity: 0, y: -6, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -6, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden flex flex-col gap-2 mt-3"
+                    >
+                      <label
+                        htmlFor="ramoOutro"
+                        className={`uppercase tracking-[0.14em] text-muted-foreground ${
+                          compact ? "text-[10px]" : "text-[10px] sm:text-xs"
+                        }`}
+                      >
+                        Qual o seu ramo?
+                      </label>
+                      <input
+                        id="ramoOutro"
+                        ref={(el) => {
+                          ramoOutroInputRef.current = el
+                          ramoOutroRegisterRef(el)
+                        }}
+                        type="text"
+                        placeholder="Ex: nutricionista, personal trainer..."
+                        className={inputClass}
+                        aria-invalid={!!errors.ramoOutro}
+                        {...ramoOutroRest}
+                      />
+                      {errors.ramoOutro && (
+                        <span className="text-xs text-destructive" role="alert">
+                          {errors.ramoOutro.message}
+                        </span>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )}
 
@@ -496,9 +674,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="telefone"
-                    className={`uppercase tracking-[0.16em] text-primary font-semibold ${
-                      compact ? "text-xs" : "text-xs"
-                    }`}
+                    className="uppercase tracking-[0.16em] text-primary font-semibold text-xs"
                   >
                     WhatsApp
                   </label>
@@ -543,9 +719,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         compact ? "p-3" : "p-3.5"
                       }`}
                     >
-                      <p className={compact ? "text-sm" : "text-sm"}>
-                        Esse número está correto?
-                      </p>
+                      <p className="text-sm">Esse número está correto?</p>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
                         <button
                           type="button"
@@ -580,9 +754,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         compact ? "p-3" : "p-3.5"
                       }`}
                     >
-                      <p className={compact ? "text-sm" : "text-sm"}>
-                        Deseja preencher e-mail?
-                      </p>
+                      <p className="text-sm">Deseja preencher e-mail?</p>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
                         <button
                           type="button"
@@ -653,17 +825,17 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
 
             {currentStep === "detalhe" && (
               <div>
-                <label htmlFor="gargaloDetalhe" className="sr-only">
-                  Detalhe do gargalo
+                <label htmlFor="detalhe" className="sr-only">
+                  Mais detalhes
                 </label>
                 <textarea
-                  id="gargaloDetalhe"
+                  id="detalhe"
                   rows={compact ? 4 : 5}
-                  placeholder="Quanto mais específico, melhor. Ex: 'planilha de pedidos vira caos quando passa de 100 linhas'"
+                  placeholder="Quanto mais específico, melhor. Ex: 'preciso de um site com agendamento online pra minha clínica'"
                   className={`w-full rounded-xl border border-dashed border-border/70 bg-secondary/20 leading-relaxed text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:bg-secondary/40 resize-none ${
                     compact ? "px-3.5 py-3 text-sm" : "px-4 py-3 text-base"
                   }`}
-                  {...register("gargaloDetalhe")}
+                  {...register("detalhe")}
                 />
               </div>
             )}
@@ -684,7 +856,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             compact ? "px-2 min-h-[40px] text-sm" : "px-3 sm:px-4 min-h-[44px] text-sm"
           }`}
         >
-          <ArrowLeft className={compact ? "h-4 w-4" : "h-4 w-4"} aria-hidden="true" />
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Voltar
         </button>
 
@@ -696,12 +868,12 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
               compact ? "gap-4 pl-5 pr-1.5 h-11" : "gap-4 sm:gap-6 pl-5 sm:pl-6 pr-2 h-12 sm:h-[52px]"
             }`}
           >
-            <span className={`font-medium tracking-tight ${compact ? "text-sm" : "text-sm"}`}>
+            <span className="font-medium tracking-tight text-sm">
               {isSubmitting
                 ? "Enviando..."
                 : isLastStep
                 ? hasDetalhe
-                  ? "Enviar diagnóstico"
+                  ? "Enviar"
                   : "Pular"
                 : "Continuar"}
             </span>
@@ -711,7 +883,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
               }`}
               aria-hidden="true"
             >
-              <ArrowRight className={compact ? "h-4 w-4" : "h-4 w-4"} strokeWidth={2.2} />
+              <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
             </span>
           </button>
         )}
@@ -745,11 +917,7 @@ function QuizField({
       </label>
       {children}
       {error && (
-        <span
-          id={`${id}-error`}
-          className="text-xs text-destructive mt-0.5"
-          role="alert"
-        >
+        <span id={`${id}-error`} className="text-xs text-destructive mt-0.5" role="alert">
           {error}
         </span>
       )}

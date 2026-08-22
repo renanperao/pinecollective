@@ -29,7 +29,7 @@ export const casePages: CaseStudy[] = [
     cliente: "Brasil Forte",
     segmento: "Fabricação e venda de portas de alto padrão",
     local: "Biguaçu, SC",
-    ano: "2024–2025",
+    ano: "2024 a 2025",
     tagline:
       "Um ecossistema digital: do pré-orçamento em segundos ao ERP que roda a fábrica inteira.",
     cardLabel: "Ecossistema digital completo",
