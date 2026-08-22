@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 
-const endpoint =
+const web3formsEndpoint =
   process.env.WEB3FORMS_ENDPOINT ??
   ["https://api", "web3forms", "com/submit"].join(".")
+
+const crmEndpoint =
+  process.env.CRM_INBOUND_URL ??
+  "https://crm-pine-collective.vercel.app/api/inbound"
 
 const requiredFields = [
   "nome",
@@ -18,6 +22,58 @@ type RequiredField = (typeof requiredFields)[number]
 type OptionalField = (typeof optionalFields)[number]
 type DiagnosticoPayload = Record<RequiredField, string> &
   Partial<Record<OptionalField, string>>
+
+async function enviarParaWeb3Forms(data: DiagnosticoPayload): Promise<boolean> {
+  const accessKey =
+    process.env.WEB3FORMS_KEY ?? process.env.NEXT_PUBLIC_WEB3FORMS_KEY
+  if (!accessKey) return false
+
+  const formData = new FormData()
+  formData.append("access_key", accessKey)
+  formData.append("subject", `Novo Diagnóstico: ${data.empresa.trim()}`)
+  formData.append("from_name", "Pine Collective Website")
+
+  requiredFields.forEach((field) => {
+    formData.append(field, data[field].trim())
+  })
+  optionalFields.forEach((field) => {
+    const value = data[field]?.trim()
+    if (value) formData.append(field, value)
+  })
+
+  try {
+    const response = await fetch(web3formsEndpoint, { method: "POST", body: formData })
+    const result = await response.json().catch(() => null)
+    return response.ok && !!result?.success
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Fonte da verdade dos leads: grava direto no CRM próprio da Pine, sem
+ * depender de um serviço de fora pra "captar" quem preencheu o formulário.
+ * Autenticado por segredo compartilhado — ver leeds-pine-collective/app/api/inbound.
+ */
+async function enviarParaCrm(data: DiagnosticoPayload): Promise<boolean> {
+  const secret = process.env.CRM_INBOUND_SECRET
+  if (!secret) return false
+
+  try {
+    const response = await fetch(crmEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-inbound-secret": secret,
+      },
+      body: JSON.stringify(data),
+    })
+    const result = await response.json().catch(() => null)
+    return response.ok && !!result?.success
+  } catch {
+    return false
+  }
+}
 
 export async function POST(request: Request) {
   let payload: Partial<DiagnosticoPayload>
@@ -39,50 +95,22 @@ export async function POST(request: Request) {
     )
   }
 
-  const accessKey =
-    process.env.WEB3FORMS_KEY ?? process.env.NEXT_PUBLIC_WEB3FORMS_KEY
-
-  if (!accessKey) {
-    return NextResponse.json(
-      { success: false, message: "Formulário indisponível no momento." },
-      { status: 500 },
-    )
-  }
-
   const data = payload as DiagnosticoPayload
-  const formData = new FormData()
-  formData.append("access_key", accessKey)
-  formData.append("subject", `Novo Diagnóstico: ${data.empresa.trim()}`)
-  formData.append("from_name", "Pine Collective Website")
 
-  requiredFields.forEach((field) => {
-    formData.append(field, data[field].trim())
-  })
+  // As duas integrações rodam em paralelo e são independentes: se uma
+  // falhar (CRM fora do ar, chave do Web3Forms expirada, etc.) o lead não
+  // se perde por causa da outra. Só falha pro visitante se as duas falharem.
+  const [crmOk, web3formsOk] = await Promise.all([
+    enviarParaCrm(data),
+    enviarParaWeb3Forms(data),
+  ])
 
-  optionalFields.forEach((field) => {
-    const value = data[field]?.trim()
-    if (value) formData.append(field, value)
-  })
-
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      body: formData,
-    })
-    const result = await response.json().catch(() => null)
-
-    if (!response.ok || !result?.success) {
-      return NextResponse.json(
-        { success: false, message: "Não foi possível enviar agora." },
-        { status: 502 },
-      )
-    }
-
-    return NextResponse.json({ success: true })
-  } catch {
+  if (!crmOk && !web3formsOk) {
     return NextResponse.json(
-      { success: false, message: "Erro de conexão." },
+      { success: false, message: "Não foi possível enviar agora." },
       { status: 502 },
     )
   }
+
+  return NextResponse.json({ success: true })
 }
