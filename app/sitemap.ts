@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { absoluteUrl, cityPages, servicePages } from "@/lib/seo-data"
+import { casePages } from "@/lib/cases-data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
@@ -37,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...cityPages.map((city) => ({
       url: absoluteUrl(`/atendimento/${city.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
+    ...casePages.map((c) => ({
+      url: absoluteUrl(`/cases/${c.slug}`),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.85,

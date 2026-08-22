@@ -34,6 +34,7 @@ export function SiteFooter() {
                 { label: "Proximidade", href: "/#proximidade" },
                 { label: "Soluções", href: "/#solucoes" },
                 { label: "O Coletivo", href: "/#coletivo" },
+                { label: "Portfólio", href: "/#portfolio" },
                 { label: "Diagnóstico", href: "/#diagnostico" },
               ].map((l) => (
                 <li key={l.href}>

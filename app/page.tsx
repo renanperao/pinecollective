@@ -5,6 +5,7 @@ import { StackStrip } from "@/components/stack-strip"
 import { Proximidade } from "@/components/proximidade"
 import { Solucoes } from "@/components/solucoes"
 import { Coletivo } from "@/components/coletivo"
+import { Portfolio } from "@/components/portfolio"
 import { PresencaDigital } from "@/components/presenca-digital"
 import { SeoClusters } from "@/components/seo-clusters"
 import { DiagnosticoForm } from "@/components/diagnostico-form"
@@ -25,6 +26,9 @@ export default function Page() {
       <Hero />
       <ScrollFadeIn>
         <Coletivo />
+      </ScrollFadeIn>
+      <ScrollFadeIn>
+        <Portfolio />
       </ScrollFadeIn>
       <StackStrip />
       <ScrollFadeIn>

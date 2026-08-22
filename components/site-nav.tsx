@@ -7,6 +7,7 @@ import { PineLogo } from "@/components/pine-logo"
 
 const navLinks = [
   { href: "/solucoes", label: "Soluções" },
+  { href: "/#portfolio", label: "Portfólio" },
   { href: "/equipe", label: "Equipe" },
   { href: "/contato", label: "Contato" },
 ]
