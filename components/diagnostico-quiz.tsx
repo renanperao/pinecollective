@@ -227,31 +227,31 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
   if (enviado) {
     return (
       <div
-        className={`flex flex-1 flex-col items-start justify-center gap-3 ${
-          compact ? "" : "gap-6"
+        className={`flex flex-1 flex-col justify-center gap-3 ${
+          compact ? "items-center text-center" : "items-start gap-6"
         }`}
         role="status"
         aria-live="polite"
       >
         <span
           className={`flex items-center justify-center rounded-full bg-primary/15 text-primary ${
-            compact ? "h-9 w-9" : "h-12 w-12"
+            compact ? "h-12 w-12" : "h-12 w-12"
           }`}
           aria-hidden="true"
         >
-          <Check className={compact ? "h-4 w-4" : "h-6 w-6"} strokeWidth={2} />
+          <Check className={compact ? "h-5 w-5" : "h-6 w-6"} strokeWidth={2} />
         </span>
         <div>
           <h3
             className={`font-semibold tracking-[-0.01em] ${
-              compact ? "text-lg" : "text-2xl md:text-3xl"
+              compact ? "text-xl" : "text-2xl md:text-3xl"
             }`}
           >
             Recebido. Obrigado pela confiança.
           </h3>
           <p
             className={`text-foreground/80 max-w-md leading-relaxed ${
-              compact ? "mt-1.5 text-xs" : "mt-3"
+              compact ? "mt-2 text-sm" : "mt-3"
             }`}
           >
             Um dos sócios da Pine Collective vai te procurar{" "}
@@ -300,7 +300,11 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
 
-      <div className="flex-1 relative overflow-hidden min-h-0">
+      <div
+        className={`flex-1 relative overflow-hidden min-h-0 ${
+          compact ? "flex items-center" : ""
+        }`}
+      >
         <AnimatePresence mode="wait" custom={direction} initial={false}>
           <motion.div
             key={currentStep}
@@ -310,13 +314,13 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.28, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className={compact ? "flex flex-col gap-3" : "flex flex-col gap-6"}
+            className={compact ? "w-full flex flex-col gap-4" : "flex flex-col gap-6"}
           >
             <div>
               <h3
                 className={`font-semibold tracking-[-0.01em] leading-tight ${
                   compact
-                    ? "text-base sm:text-lg"
+                    ? "text-lg sm:text-xl"
                     : "text-xl sm:text-2xl md:text-[1.6rem]"
                 }`}
               >
@@ -331,7 +335,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                 <span
                   className={`inline-flex items-center rounded-full border border-primary bg-primary/15 font-bold text-primary ${
                     compact
-                      ? "mt-2.5 px-3 py-1 text-[11px]"
+                      ? "mt-3 px-3.5 py-1.5 text-xs"
                       : "mt-4 px-4 py-1.5 text-sm"
                   }`}
                 >
@@ -347,7 +351,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                   aria-label="Categoria do gargalo"
                   className={
                     compact
-                      ? "grid grid-cols-2 gap-1.5"
+                      ? "grid grid-cols-2 gap-2"
                       : "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"
                   }
                 >
@@ -362,7 +366,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         onClick={() => selectSingleChoice("gargaloCategoria", value)}
                         className={`group flex items-center text-left transition-all duration-200 active:scale-[0.98] transform-gpu ${
                           compact
-                            ? "gap-2 rounded-lg border px-2.5 py-2 text-[11px] leading-tight"
+                            ? "gap-2.5 rounded-xl border px-3 py-3 text-xs leading-snug"
                             : "gap-3 rounded-xl border px-4 py-3.5 text-sm"
                         } ${
                           active
@@ -372,7 +376,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                       >
                         <span
                           className={`flex shrink-0 items-center justify-center rounded-lg border transition-colors ${
-                            compact ? "h-6 w-6" : "h-8 w-8"
+                            compact ? "h-7 w-7" : "h-8 w-8"
                           } ${
                             active
                               ? "border-primary/60 bg-primary/15 text-primary"
@@ -381,7 +385,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                           aria-hidden="true"
                         >
                           <Icon
-                            className={compact ? "h-3 w-3" : "h-4 w-4"}
+                            className={compact ? "h-3.5 w-3.5" : "h-4 w-4"}
                             strokeWidth={1.8}
                           />
                         </span>
@@ -389,7 +393,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         {active && (
                           <Check
                             className={`shrink-0 text-primary ${
-                              compact ? "h-3 w-3" : "h-4 w-4"
+                              compact ? "h-3.5 w-3.5" : "h-4 w-4"
                             }`}
                             strokeWidth={2.4}
                             aria-hidden="true"
@@ -419,7 +423,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                   role="radiogroup"
                   aria-label="Orçamento estimado"
                   className={
-                    compact ? "flex flex-wrap gap-1.5" : "flex flex-wrap gap-2 sm:gap-3"
+                    compact ? "flex flex-wrap gap-2" : "flex flex-wrap gap-2 sm:gap-3"
                   }
                 >
                   {orcamentos.map((opt) => {
@@ -433,7 +437,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                         onClick={() => selectSingleChoice("orcamento", opt)}
                         className={`rounded-full border transition-all duration-200 active:scale-[0.97] transform-gpu ${
                           compact
-                            ? "px-3 min-h-[34px] text-xs"
+                            ? "px-4 min-h-[40px] text-sm"
                             : "px-4 min-h-[44px] text-sm"
                         } ${
                           active
@@ -461,7 +465,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             )}
 
             {currentStep === "sobre" && (
-              <div className={compact ? "grid grid-cols-2 gap-2.5" : "grid sm:grid-cols-2 gap-5"}>
+              <div className={compact ? "grid grid-cols-2 gap-3" : "grid sm:grid-cols-2 gap-5"}>
                 <QuizField id="nome" label="Seu nome" error={errors.nome?.message} compact={compact}>
                   <input
                     id="nome"
@@ -488,12 +492,12 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             )}
 
             {currentStep === "contato" && (
-              <div className={compact ? "flex flex-col gap-2.5" : "flex flex-col gap-4"}>
+              <div className={compact ? "flex flex-col gap-3" : "flex flex-col gap-4"}>
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="telefone"
                     className={`uppercase tracking-[0.16em] text-primary font-semibold ${
-                      compact ? "text-[10px]" : "text-xs"
+                      compact ? "text-xs" : "text-xs"
                     }`}
                   >
                     WhatsApp
@@ -506,7 +510,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                     placeholder="(00) 00000-0000"
                     className={`w-full rounded-xl border-2 bg-primary/5 font-semibold text-foreground placeholder:text-muted-foreground/60 placeholder:font-normal outline-none transition-colors focus:bg-primary/10 ${
                       compact
-                        ? "px-3.5 py-2.5 text-base"
+                        ? "px-4 py-3.5 text-lg"
                         : "px-4 py-4 text-lg sm:text-xl"
                     } ${
                       errors.telefone
@@ -536,10 +540,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                       exit={{ opacity: 0, y: -6, height: 0 }}
                       transition={{ duration: 0.2 }}
                       className={`overflow-hidden rounded-xl border border-primary/40 bg-secondary/40 ${
-                        compact ? "p-2.5" : "p-3.5"
+                        compact ? "p-3" : "p-3.5"
                       }`}
                     >
-                      <p className={compact ? "text-xs" : "text-sm"}>
+                      <p className={compact ? "text-sm" : "text-sm"}>
                         Esse número está correto?
                       </p>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
@@ -547,7 +551,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                           type="button"
                           onClick={() => setPhoneStage("idle")}
                           className={`rounded-full border border-border/80 text-foreground/70 hover:text-foreground hover:border-border transition-colors ${
-                            compact ? "px-3 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                            compact ? "px-3.5 min-h-[36px] text-sm" : "px-4 min-h-[38px] text-sm"
                           }`}
                         >
                           Não
@@ -556,7 +560,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                           type="button"
                           onClick={() => setPhoneStage("confirm-email")}
                           className={`rounded-full bg-emerald-600 font-semibold text-white hover:bg-emerald-500 transition-colors active:scale-[0.97] transform-gpu ${
-                            compact ? "px-4 min-h-[32px] text-xs" : "px-5 min-h-[38px] text-sm"
+                            compact ? "px-5 min-h-[36px] text-sm" : "px-5 min-h-[38px] text-sm"
                           }`}
                         >
                           Sim
@@ -573,10 +577,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                       exit={{ opacity: 0, y: -6, height: 0 }}
                       transition={{ duration: 0.2 }}
                       className={`overflow-hidden rounded-xl border border-border/70 bg-secondary/40 ${
-                        compact ? "p-2.5" : "p-3.5"
+                        compact ? "p-3" : "p-3.5"
                       }`}
                     >
-                      <p className={compact ? "text-xs" : "text-sm"}>
+                      <p className={compact ? "text-sm" : "text-sm"}>
                         Deseja preencher e-mail?
                       </p>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
@@ -587,7 +591,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                             advanceAfter(120)
                           }}
                           className={`rounded-full bg-destructive font-semibold text-white hover:bg-destructive/90 transition-colors active:scale-[0.97] transform-gpu ${
-                            compact ? "px-3.5 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                            compact ? "px-4 min-h-[36px] text-sm" : "px-4 min-h-[38px] text-sm"
                           }`}
                         >
                           Não
@@ -596,7 +600,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                           type="button"
                           onClick={() => setPhoneStage("revealed-email")}
                           className={`rounded-full border border-border/80 text-foreground/80 hover:text-foreground hover:border-primary/50 transition-colors ${
-                            compact ? "px-3.5 min-h-[32px] text-xs" : "px-4 min-h-[38px] text-sm"
+                            compact ? "px-4 min-h-[36px] text-sm" : "px-4 min-h-[38px] text-sm"
                           }`}
                         >
                           Sim
@@ -617,7 +621,7 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                       <label
                         htmlFor="email"
                         className={`uppercase tracking-[0.14em] text-muted-foreground ${
-                          compact ? "text-[9px]" : "text-[10px] sm:text-xs"
+                          compact ? "text-[10px]" : "text-[10px] sm:text-xs"
                         }`}
                       >
                         E-mail
@@ -654,10 +658,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
                 </label>
                 <textarea
                   id="gargaloDetalhe"
-                  rows={compact ? 3 : 5}
+                  rows={compact ? 4 : 5}
                   placeholder="Quanto mais específico, melhor. Ex: 'planilha de pedidos vira caos quando passa de 100 linhas'"
                   className={`w-full rounded-xl border border-dashed border-border/70 bg-secondary/20 leading-relaxed text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:bg-secondary/40 resize-none ${
-                    compact ? "px-3 py-2.5 text-sm" : "px-4 py-3 text-base"
+                    compact ? "px-3.5 py-3 text-sm" : "px-4 py-3 text-base"
                   }`}
                   {...register("gargaloDetalhe")}
                 />
@@ -677,10 +681,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
           onClick={goPrev}
           disabled={stepIdx === 0}
           className={`inline-flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
-            compact ? "px-2 min-h-[36px] text-xs" : "px-3 sm:px-4 min-h-[44px] text-sm"
+            compact ? "px-2 min-h-[40px] text-sm" : "px-3 sm:px-4 min-h-[44px] text-sm"
           }`}
         >
-          <ArrowLeft className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} aria-hidden="true" />
+          <ArrowLeft className={compact ? "h-4 w-4" : "h-4 w-4"} aria-hidden="true" />
           Voltar
         </button>
 
@@ -689,10 +693,10 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             type="submit"
             disabled={isSubmitting}
             className={`group inline-flex items-center justify-between rounded-full bg-primary text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transform-gpu ${
-              compact ? "gap-3 pl-4 pr-1.5 h-10" : "gap-4 sm:gap-6 pl-5 sm:pl-6 pr-2 h-12 sm:h-[52px]"
+              compact ? "gap-4 pl-5 pr-1.5 h-11" : "gap-4 sm:gap-6 pl-5 sm:pl-6 pr-2 h-12 sm:h-[52px]"
             }`}
           >
-            <span className={`font-medium tracking-tight ${compact ? "text-xs" : "text-sm"}`}>
+            <span className={`font-medium tracking-tight ${compact ? "text-sm" : "text-sm"}`}>
               {isSubmitting
                 ? "Enviando..."
                 : isLastStep
@@ -703,11 +707,11 @@ export function DiagnosticoQuiz({ compact = false }: { compact?: boolean }) {
             </span>
             <span
               className={`flex items-center justify-center rounded-full bg-background/15 transition-transform duration-200 group-hover:rotate-45 ${
-                compact ? "h-7 w-7" : "h-9 w-9"
+                compact ? "h-8 w-8" : "h-9 w-9"
               }`}
               aria-hidden="true"
             >
-              <ArrowRight className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} strokeWidth={2.2} />
+              <ArrowRight className={compact ? "h-4 w-4" : "h-4 w-4"} strokeWidth={2.2} />
             </span>
           </button>
         )}
@@ -734,7 +738,7 @@ function QuizField({
       <label
         htmlFor={id}
         className={`uppercase tracking-[0.18em] text-primary font-medium ${
-          compact ? "text-[9px]" : "text-[10px] sm:text-xs"
+          compact ? "text-[10px]" : "text-[10px] sm:text-xs"
         }`}
       >
         {label}

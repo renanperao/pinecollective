@@ -14,21 +14,26 @@ export const metadata: Metadata = {
 export default function DiagnosticoPage() {
   return (
     <main className="h-dvh w-full overflow-hidden bg-background text-foreground grain flex flex-col">
-      <header className="shrink-0 flex items-center justify-center pt-3 pb-1">
+      <header className="shrink-0 flex flex-col items-center gap-1 pt-4 pb-2 px-4 text-center">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-foreground rounded-md"
           aria-label="Pine Collective, Início"
         >
           <PineLogo className="h-5 w-5 text-primary" />
-          <span className="text-xs font-medium tracking-tight">
+          <span className="text-sm font-medium tracking-tight">
             Pine<span className="text-muted-foreground"> Collective</span>
           </span>
         </Link>
+        <p className="text-[11px] leading-snug text-muted-foreground max-w-[300px] text-balance">
+          Consultoria Boutique de Tecnologia{" "}
+          <span className="text-primary/70">|</span> Software sob medida e
+          páginas que convertem
+        </p>
       </header>
 
-      <div className="flex-1 min-h-0 flex items-center justify-center px-3 pb-3">
-        <div className="w-full max-w-sm max-h-full overflow-y-auto flex flex-col rounded-2xl border border-border/70 bg-card/40 p-4">
+      <div className="flex-1 min-h-0 flex justify-center px-3 pb-3">
+        <div className="w-full max-w-sm flex flex-col rounded-2xl border border-border/70 bg-card/40 p-5">
           <DiagnosticoQuiz compact />
         </div>
       </div>
