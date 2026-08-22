@@ -5,6 +5,10 @@ export type CaseStudy = {
   local: string
   ano: string
   tagline: string
+  cardLabel: string
+  logo: string
+  logoWidth: number
+  logoHeight: number
   cover: string
   gallery: { src: string; alt: string; width: number; height: number }[]
   liveUrl?: string
@@ -28,6 +32,10 @@ export const casePages: CaseStudy[] = [
     ano: "2024–2025",
     tagline:
       "Um ecossistema digital: do pré-orçamento em segundos ao ERP que roda a fábrica inteira.",
+    cardLabel: "Ecossistema digital completo",
+    logo: "/cases/logos/brasil-forte-white.png",
+    logoWidth: 1694,
+    logoHeight: 492,
     cover: "/cases/brasil-forte/site-home.png",
     gallery: [
       {
@@ -135,6 +143,10 @@ export const casePages: CaseStudy[] = [
     ano: "2025",
     tagline:
       "Vitrine digital com painel próprio: a loja atualiza o estoque sem depender de ninguém.",
+    cardLabel: "Desenvolvimento de site exclusivo",
+    logo: "/cases/logos/autobayer.png",
+    logoWidth: 430,
+    logoHeight: 160,
     cover: "/cases/autobayer/home.png",
     gallery: [
       {
